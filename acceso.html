@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acceso | VALKROHN</title>
+    <meta name="description" content="Accede a tu cuenta o compra como invitado en VALKROHN." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="index.html" class="brand"><img src="assets/valkrohn-logo.svg" alt="" /> <span>VALKROHN</span></a>
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a href="index.html">Inicio</a>
+          <a href="catalog.html">Colección</a>
+          <a href="product.html?id=1">Nuevo</a>
+          <a href="contact.html">Contacto</a>
+        </nav>
+        <div class="nav-tools">
+          <a href="catalog.html" class="nav-link">Buscar</a>
+          <a href="cart.html" class="nav-link cart-link">
+            <span class="cart-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg></span>
+            Carrito <span class="cart-badge">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <section class="container access-page">
+        <div class="access-intro">
+          <p class="eyebrow dark">Tu espacio VALKROHN</p>
+          <h1>Continúa con tu compra.</h1>
+          <p>Inicia sesión para guardar tus pedidos o compra como invitado de forma rápida y segura.</p>
+        </div>
+
+        <div class="access-grid">
+          <form id="login-form" class="access-card access-login" novalidate>
+            <div class="access-card-heading">
+              <span class="access-index">01</span>
+              <div>
+                <p class="eyebrow">Cuenta</p>
+                <h2>Iniciar sesión</h2>
+              </div>
+            </div>
+            <ul class="guest-benefits account-benefits">
+              <li>Consulta tus pedidos en cualquier momento</li>
+              <li>Guarda tus datos para comprar más rápido</li>
+              <li>Recibe novedades y beneficios exclusivos</li>
+            </ul>
+            <div class="field-group register-only" hidden>
+              <label for="login-name">Nombre</label>
+              <input id="login-name" name="name" type="text" minlength="2" maxlength="120" autocomplete="name" placeholder="Tu nombre" />
+            </div>
+            <div class="field-group">
+              <label for="login-email">Correo electrónico</label>
+              <input id="login-email" name="email" type="email" autocomplete="email" placeholder="tu@correo.com" required />
+            </div>
+            <div class="field-group">
+              <label for="login-password">Contraseña</label>
+              <input id="login-password" name="password" type="password" minlength="6" autocomplete="current-password" placeholder="Mínimo 6 caracteres" required />
+            </div>
+            <p id="login-error" class="form-error" hidden></p>
+            <button id="login-submit" type="submit" class="button primary block">Entrar a mi cuenta</button>
+            <div class="social-login-divider"><span>o continúa con</span></div>
+            <div class="social-login" aria-label="Acceso con redes sociales">
+              <button type="button" class="social-login-button google-login" title="Continuar con Google" aria-label="Continuar con Google">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.35 12.27c0-.72-.06-1.42-.18-2.09H12v3.96h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.26Z"/><path fill="#34A853" d="M12 21.7c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.7-1.72-5.48-4.03H3.28v2.53A9.74 9.74 0 0 0 12 21.7Z"/><path fill="#FBBC05" d="M6.52 13.78a5.84 5.84 0 0 1 0-3.56V7.69H3.28a9.77 9.77 0 0 0 0 8.62l3.24-2.53Z"/><path fill="#EA4335" d="M12 6.2c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 3.27 14.63 2.3 12 2.3a9.74 9.74 0 0 0-8.72 5.39l3.24 2.53C7.3 7.92 9.46 6.2 12 6.2Z"/></svg>
+              </button>
+              <button type="button" class="social-login-button facebook-login" title="Continuar con Facebook" aria-label="Continuar con Facebook">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.6 21v-8h2.7l.4-3h-3.1V8.1c0-.87.24-1.46 1.5-1.46h1.7V4a22.4 22.4 0 0 0-2.47-.13c-2.45 0-4.13 1.5-4.13 4.25V10H7.4v3h2.8v8h3.4Z"/></svg>
+              </button>
+            </div>
+            <p class="access-note">La cuenta real se conectará a Python y MySQL en la siguiente etapa.</p>
+            <button id="register-toggle" type="button" class="access-switch">¿No tienes cuenta? Crear una</button>
+          </form>
+
+          <div class="access-card access-guest">
+            <div class="access-card-heading">
+              <span class="access-index">02</span>
+              <div>
+                <p class="eyebrow">Sin registro</p>
+                <h2>Comprar como invitado</h2>
+              </div>
+            </div>
+            <p class="guest-copy">No necesitas crear una cuenta. Solo te pediremos los datos necesarios para entregar tu pedido.</p>
+            <ul class="guest-benefits">
+              <li>Checkout rápido</li>
+              <li>Seguimiento por correo</li>
+              <li>Compra segura</li>
+            </ul>
+            <a href="checkout.html" class="button secondary block">Continuar como invitado</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <a href="index.html" class="brand footer-brand"><img src="assets/valkrohn-logo.svg" alt="" /> <span>VALKROHN</span></a>
+        <p>© 2026 VALKROHN</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

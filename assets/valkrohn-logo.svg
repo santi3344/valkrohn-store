@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="title desc">
+  <title id="title">VALKROHN emblem</title>
+  <desc id="desc">Geometric triangle and circle emblem for VALKROHN</desc>
+  <rect width="400" height="400" fill="#0b0c0d"/>
+  <g fill="none" stroke="#c7a66a" stroke-width="3" stroke-linecap="square">
+    <path d="M200 24 L29 342 H118 M200 24 L371 342 H282"/>
+    <path d="M200 54 L92 300 M200 54 L308 300"/>
+    <circle cx="200" cy="236" r="116"/>
+    <path d="M146 278 L200 177 L254 278"/>
+  </g>
+</svg>

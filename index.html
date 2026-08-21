@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VALKROHN | Moda con carácter</title>
+    <meta name="description" content="VALKROHN: ropa contemporánea con fuerza, disciplina y nobleza." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="index.html" class="brand"><img src="assets/valkrohn-logo.svg" alt="" /> <span>VALKROHN</span></a>
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a href="index.html">Inicio</a>
+          <a href="catalog.html">Colección</a>
+          <a href="product.html?id=1">Nuevo</a>
+          <a href="contact.html">Contacto</a>
+        </nav>
+        <div class="nav-tools">
+          <a href="catalog.html" class="nav-link">Buscar</a>
+          <a href="cart.html" class="nav-link cart-link">
+            <span class="cart-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg></span>
+            Carrito
+            <span class="cart-badge">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container luxury-hero">
+          <img class="luxury-hero-image" src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1800&q=85" alt="Modelo con chaqueta negra de VALKROHN" />
+          <div class="luxury-hero-shade"></div>
+          <div class="luxury-hero-content">
+            <p class="eyebrow">Colección Otoño 2026</p>
+            <h1>Fuerza que se viste.<br /><em>Nobleza que permanece.</em></h1>
+            <p class="lead">Prendas de carácter para quienes avanzan con disciplina y dejan una marca propia.</p>
+            <div class="hero-actions">
+              <a href="catalog.html" class="button primary">Descubrir colección</a>
+              <a href="product.html?id=2" class="button secondary">Ver destacado</a>
+            </div>
+          </div>
+          <div class="luxury-hero-mark">V / K</div>
+          <div class="luxury-hero-scroll">Desliza para explorar <span>↓</span></div>
+        </div>
+      </section>
+
+      <section class="categories container">
+        <div class="section-heading">
+          <p class="eyebrow dark">Explora</p>
+          <h2>Categorías</h2>
+        </div>
+
+        <div class="category-grid">
+          <article class="category-card">
+            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80" alt="Chaquetas" />
+            <div class="category-overlay">
+              <span>Chaquetas</span>
+            </div>
+          </article>
+
+          <article class="category-card">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Pantalones" />
+            <div class="category-overlay">
+              <span>Pantalones</span>
+            </div>
+          </article>
+
+          <article class="category-card">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80" alt="Sudaderas" />
+            <div class="category-overlay">
+              <span>Sudaderas</span>
+            </div>
+          </article>
+
+          <article class="category-card">
+            <img src="https://images.unsplash.com/photo-1521369909026-2afed882baee?auto=format&fit=crop&w=800&q=80" alt="Accesorios" />
+            <div class="category-overlay">
+              <span>Accesorios</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="featured container">
+        <div class="section-heading compact">
+          <p class="eyebrow dark">Populares</p>
+          <h2>Lo más vendido</h2>
+        </div>
+
+        <div class="product-grid featured-grid">
+          <article class="product-card">
+            <div class="product-media">
+              <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80" alt="Tech Jacket" />
+              <a class="card-view-link" href="product.html?id=1">Ver producto <span>↗</span></a>
+            </div>
+            <div class="product-info">
+              <div class="product-meta">
+                <span class="tag">VALKROHN</span>
+                <span class="price">189€</span>
+              </div>
+              <h3>Tech Jacket</h3>
+              <label class="size-select-label">Talla
+                <select class="size-select" data-size-select><option>XS</option><option selected>M</option><option>L</option><option>XL</option></select>
+              </label>
+              <button class="button product-button" data-product="1">Añadir al carrito</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-media">
+              <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80" alt="Cargo Pants" />
+              <a class="card-view-link" href="product.html?id=2">Ver producto <span>↗</span></a>
+            </div>
+            <div class="product-info">
+              <div class="product-meta">
+                <span class="tag">Urban</span>
+                <span class="price">129€</span>
+              </div>
+              <h3>Cargo Pants</h3>
+              <label class="size-select-label">Talla
+                <select class="size-select" data-size-select><option>S</option><option selected>M</option><option>L</option><option>XL</option></select>
+              </label>
+              <button class="button product-button" data-product="2">Añadir al carrito</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-media">
+              <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80" alt="Logo Hoodie" />
+              <a class="card-view-link" href="product.html?id=3">Ver producto <span>↗</span></a>
+            </div>
+            <div class="product-info">
+              <div class="product-meta">
+                <span class="tag">Core</span>
+                <span class="price">99€</span>
+              </div>
+              <h3>Logo Hoodie</h3>
+              <label class="size-select-label">Talla
+                <select class="size-select" data-size-select><option>S</option><option selected>M</option><option>L</option><option>XL</option></select>
+              </label>
+              <button class="button product-button" data-product="3">Añadir al carrito</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-media">
+              <img src="https://images.unsplash.com/photo-1521369909026-2afed882baee?auto=format&fit=crop&w=900&q=80" alt="Logo Cap" />
+              <a class="card-view-link" href="product.html?id=4">Ver producto <span>↗</span></a>
+            </div>
+            <div class="product-info">
+              <div class="product-meta">
+                <span class="tag">Essentials</span>
+                <span class="price">49€</span>
+              </div>
+              <h3>Logo Cap</h3>
+              <label class="size-select-label">Talla
+                <select class="size-select" data-size-select><option selected>Único</option></select>
+              </label>
+              <button class="button product-button" data-product="4">Añadir al carrito</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="benefits container">
+        <div class="section-heading">
+          <p class="eyebrow dark">Por qué elegirnos</p>
+          <h2>Diseño pensado para vivirlo cada día.</h2>
+        </div>
+
+        <div class="benefit-grid">
+          <article class="benefit-card">
+            <span>01</span>
+            <h3>Envío rápido</h3>
+            <p>Recibe tus piezas en 48 horas y sigue disfrutando del estilo urbano.</p>
+          </article>
+          <article class="benefit-card">
+            <span>02</span>
+            <h3>Pago seguro</h3>
+            <p>Compras con tranquilidad con métodos seguros y soporte real.</p>
+          </article>
+          <article class="benefit-card">
+            <span>03</span>
+            <h3>Devoluciones fáciles</h3>
+            <p>Si no encaja, te ayudamos a cambiarlo sin complicaciones.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="reviews container">
+        <div class="section-heading compact">
+          <p class="eyebrow dark">Opiniones</p>
+          <h2>Clientes que repiten.</h2>
+        </div>
+
+        <div class="review-grid">
+          <article class="review-card">
+            <div class="stars">★★★★★</div>
+            <p>“La calidad es increíble y el corte es perfecto. La mejor compra que hice este año.”</p>
+            <strong>Laura M.</strong>
+          </article>
+          <article class="review-card">
+            <div class="stars">★★★★★</div>
+            <p>“Me encantó la sensación premium y la rapidez de entrega. El estilo es brutal.”</p>
+            <strong>Adrián R.</strong>
+          </article>
+          <article class="review-card">
+            <div class="stars">★★★★★</div>
+            <p>“Muy buena atención, excelente acabados y un diseño que se ve mucho más caro.”</p>
+            <strong>Sofía G.</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="newsletter container">
+        <div class="newsletter-box">
+          <div>
+            <p class="eyebrow dark">Newsletter</p>
+            <h2>Recibe ofertas exclusivas y primeras noticias.</h2>
+          </div>
+          <form class="newsletter-form" id="newsletter-form">
+            <input type="email" placeholder="Tu email" aria-label="Tu email" required />
+            <button type="submit" class="button primary">Suscribirme</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="promo container">
+        <div class="promo-inner">
+          <div>
+            <p class="eyebrow dark">Solo esta semana</p>
+            <h2>20% de descuento en la colección premium.</h2>
+          </div>
+          <a href="catalog.html" class="button primary">Ver colección</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <div>
+          <a href="index.html" class="brand footer-brand"><img src="assets/valkrohn-logo.svg" alt="" /> <span>VALKROHN</span></a>
+        </div>
+        <div class="footer-links">
+          <a href="catalog.html">Colección</a>
+          <a href="checkout.html">Pago</a>
+          <a href="contact.html">Ayuda</a>
+        </div>
+        <p>© 2026 VALKROHN</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

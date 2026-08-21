@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrito | VALKROHN</title>
+    <meta name="description" content="Revisa los productos añadidos a tu carrito." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="index.html" class="brand"><img src="assets/valkrohn-logo.svg" alt="" /> <span>VALKROHN</span></a>
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a href="index.html">Inicio</a>
+          <a href="catalog.html">Colección</a>
+          <a href="product.html?id=1">Nuevo</a>
+          <a href="contact.html">Contacto</a>
+        </nav>
+        <div class="nav-tools">
+          <a href="catalog.html" class="nav-link">Buscar</a>
+          <a href="cart.html" class="nav-link cart-link active-cart">
+            <span class="cart-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg></span>
+            Carrito
+            <span class="cart-badge">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <section class="container cart-page">
+        <div class="section-heading compact">
+          <p class="eyebrow dark">Tu carrito</p>
+          <h1>Productos seleccionados</h1>
+        </div>
+
+        <div class="cart-layout">
+          <div id="cart-items" class="cart-items"></div>
+
+          <aside class="cart-summary">
+            <h2>Resumen</h2>
+            <div class="summary-line">
+              <span>Subtotal</span>
+              <strong id="subtotal">0€</strong>
+            </div>
+            <div class="summary-line">
+              <span>Envío</span>
+              <strong id="shipping">0€</strong>
+            </div>
+            <div class="summary-line total-line">
+              <span>Total</span>
+              <strong id="total">0€</strong>
+            </div>
+            <a href="acceso.html" class="button primary block">Continuar compra</a>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <div>
+          <a href="index.html" class="brand footer-brand"><img src="assets/valkrohn-logo.svg" alt="" /> <span>VALKROHN</span></a>
+        </div>
+        <div class="footer-links">
+          <a href="catalog.html">Colección</a>
+          <a href="checkout.html">Pago</a>
+          <a href="contact.html">Ayuda</a>
+        </div>
+        <p>© 2026 VALKROHN</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

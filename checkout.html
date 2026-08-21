@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | VALKROHN</title>
+    <meta name="description" content="Finaliza tu compra en VALKROHN." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="index.html" class="brand"><img src="assets/valkrohn-logo.svg" alt="" /> <span>VALKROHN</span></a>
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a href="index.html">Inicio</a>
+          <a href="catalog.html">Colección</a>
+          <a href="product.html?id=1">Nuevo</a>
+          <a href="contact.html">Contacto</a>
+        </nav>
+        <div class="nav-tools">
+          <a href="catalog.html" class="nav-link">Buscar</a>
+          <a href="cart.html" class="nav-link cart-link">
+            <span class="cart-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg></span>
+            Carrito
+            <span class="cart-badge">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <section class="container checkout-page">
+        <div class="section-heading compact">
+          <p class="eyebrow dark">Checkout</p>
+          <h1>Finaliza tu pedido</h1>
+        </div>
+
+        <div class="checkout-access-note">
+          <span>¿Quieres guardar tus pedidos?</span>
+          <a href="acceso.html">Iniciar sesión o comprar como invitado</a>
+        </div>
+
+        <div class="checkout-layout">
+          <form id="checkout-form" class="checkout-form" novalidate>
+            <div class="field-group">
+              <label for="name">Nombre</label>
+              <input id="name" name="name" type="text" minlength="2" maxlength="60" autocomplete="name" placeholder="Tu nombre" required />
+            </div>
+
+            <div class="field-group">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" maxlength="120" autocomplete="email" placeholder="correo@ejemplo.com" required />
+            </div>
+
+            <div class="field-group">
+              <label for="phone">Teléfono</label>
+              <div class="phone-fields">
+                <div class="country-picker">
+                  <input type="hidden" id="country-code" name="country-code" value="ES" />
+                  <button type="button" id="country-trigger" class="country-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <img id="selected-country-flag" src="https://flagcdn.com/w40/es.png" alt="" />
+                    <span id="selected-country-name">España</span>
+                    <strong id="selected-country-dial">+34</strong>
+                    <span class="country-chevron" aria-hidden="true">⌄</span>
+                  </button>
+                  <div id="country-menu" class="country-menu" role="listbox" hidden></div>
+                </div>
+                <input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="15" placeholder="612 345 678" required />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="address">Dirección</label>
+              <input id="address" name="address" type="text" maxlength="120" autocomplete="street-address" placeholder="Calle, número, piso" required />
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label for="city">Ciudad</label>
+                <input id="city" name="city" type="text" minlength="2" maxlength="60" autocomplete="address-level2" placeholder="Madrid" required />
+              </div>
+              <div class="field-group">
+                <label for="zip">Código postal</label>
+                <input id="zip" name="zip" type="text" minlength="3" maxlength="10" inputmode="numeric" autocomplete="postal-code" placeholder="28001" required />
+              </div>
+            </div>
+
+            <fieldset class="payment-methods">
+              <legend>Método de pago</legend>
+
+              <label class="payment-option">
+                <input type="radio" name="payment" value="tarjeta" checked />
+                <span class="payment-copy">
+                  <strong>Tarjeta bancaria</strong>
+                  <small>Visa · Mastercard · American Express</small>
+                </span>
+                <span class="payment-mark">CARD</span>
+              </label>
+
+              <div id="selected-payment" class="selected-payment" hidden>
+                <button type="button" id="selected-payment-toggle" class="selected-payment-toggle" aria-expanded="true">
+                  <span><strong>Tarjeta bancaria</strong><small id="saved-card-summary">Método seleccionado</small></span>
+                  <span class="selected-payment-arrow" aria-hidden="true">⌄</span>
+                </button>
+                <button type="button" id="change-payment" class="change-payment">Cambiar</button>
+              </div>
+
+              <div id="card-fields" class="card-fields">
+                <div class="field-group">
+                  <label for="card-name">Titular de la tarjeta</label>
+                  <input id="card-name" name="card-name" type="text" minlength="2" maxlength="60" autocomplete="cc-name" placeholder="Nombre que aparece en la tarjeta" />
+                </div>
+
+                <div class="field-group">
+                  <label for="card-number">Número de tarjeta</label>
+                  <input id="card-number" name="card-number" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="19" />
+                </div>
+
+                <div class="field-row">
+                  <div class="field-group">
+                    <label for="card-expiry">Fecha de vencimiento</label>
+                    <input id="card-expiry" name="card-expiry" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/AA" maxlength="5" />
+                  </div>
+                  <div class="field-group">
+                    <label for="card-cvv">CVV</label>
+                    <input id="card-cvv" name="card-cvv" type="password" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4" />
+                  </div>
+                </div>
+
+                <p class="payment-note">Esto es una previsualización. No introduzcas datos reales hasta conectar un proveedor de pago seguro.</p>
+              </div>
+
+            </fieldset>
+
+            <button type="submit" class="button primary block">Pagar ahora</button>
+            <p id="checkout-error" class="checkout-error" role="alert" hidden></p>
+          </form>
+
+          <aside class="checkout-side">
+            <div class="credit-card-preview" aria-label="Vista previa de la tarjeta">
+              <div class="card-preview-top">
+                <span class="card-chip">✦</span>
+                <span class="card-contactless">)))</span>
+              </div>
+              <strong id="card-preview-number">•••• •••• •••• ••••</strong>
+              <div class="card-preview-bottom">
+                <span id="card-preview-name">NOMBRE DEL TITULAR</span>
+                <span>VENCE <b id="card-preview-expiry">MM/AA</b></span>
+                <span>CVV <b>•••</b></span>
+              </div>
+            </div>
+
+            <div class="cart-summary summary-box">
+              <h2>Tu pedido</h2>
+              <div id="checkout-summary" class="checkout-summary-list"></div>
+              <div class="summary-line total-line">
+                <span>Total</span>
+                <strong id="checkout-total">0€</strong>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <div>
+          <a href="index.html" class="brand footer-brand"><img src="assets/valkrohn-logo.svg" alt="" /> <span>VALKROHN</span></a>
+        </div>
+        <div class="footer-links">
+          <a href="catalog.html">Colección</a>
+          <a href="checkout.html">Pago</a>
+          <a href="contact.html">Ayuda</a>
+        </div>
+        <p>© 2026 VALKROHN</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

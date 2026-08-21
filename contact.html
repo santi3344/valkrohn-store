@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacto | VALKROHN</title>
+    <meta name="description" content="Contacta con VALKROHN para asesoría o soporte." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="index.html" class="brand"><img src="assets/valkrohn-logo.svg" alt="" /> <span>VALKROHN</span></a>
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a href="index.html">Inicio</a>
+          <a href="catalog.html">Colección</a>
+          <a href="product.html?id=1">Nuevo</a>
+          <a href="contact.html" class="active">Contacto</a>
+        </nav>
+        <div class="nav-tools">
+          <a href="catalog.html" class="nav-link">Buscar</a>
+          <a href="cart.html" class="nav-link cart-link">
+            <span class="cart-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg></span>
+            Carrito
+            <span class="cart-badge">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-content contact-page">
+      <section class="container contact-layout">
+        <div class="contact-card">
+          <p class="eyebrow dark">Contacto</p>
+          <h1>Hablemos de tu estilo.</h1>
+          <p class="contact-text">
+            Consulta ayuda, asesoramiento o dudas sobre tallas y envíos. Te responderemos en menos de 24 horas.
+          </p>
+
+          <form id="contact-form" class="contact-form" novalidate>
+            <div class="field-group">
+              <label for="contact-name">Nombre</label>
+              <input id="contact-name" type="text" minlength="2" maxlength="60" autocomplete="name" placeholder="Tu nombre" required />
+            </div>
+
+            <div class="field-group">
+              <label for="contact-email">Email</label>
+              <input id="contact-email" type="email" maxlength="120" autocomplete="email" placeholder="correo@ejemplo.com" required />
+            </div>
+
+            <div class="field-group">
+              <label for="contact-message">Mensaje</label>
+              <textarea id="contact-message" rows="5" minlength="10" maxlength="500" placeholder="Escribe tu mensaje..." required></textarea>
+            </div>
+
+            <button type="submit" class="button primary">Enviar</button>
+            <p id="contact-error" class="checkout-error" role="alert" hidden></p>
+          </form>
+        </div>
+
+        <aside class="info-card">
+          <h2>Información</h2>
+          <ul>
+            <li>Email: hello@valkrohn.com</li>
+            <li>Tel: +34 900 123 456</li>
+            <li>Horario: Lun - Vie, 9:00 - 18:00</li>
+            <li>Madrid, España</li>
+          </ul>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <div>
+          <a href="index.html" class="brand footer-brand"><img src="assets/valkrohn-logo.svg" alt="" /> <span>VALKROHN</span></a>
+        </div>
+        <div class="footer-links">
+          <a href="catalog.html">Colección</a>
+          <a href="checkout.html">Pago</a>
+          <a href="contact.html">Ayuda</a>
+        </div>
+        <p>© 2026 VALKROHN</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
