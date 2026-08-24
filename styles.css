@@ -2900,6 +2900,235 @@ textarea::placeholder {
   }
 }
 
+/* Monochrome direction */
+:root {
+  --bg: #050505;
+  --bg-soft: #0b0b0b;
+  --panel: #121212;
+  --panel-alt: #242424;
+  --line: rgba(255, 255, 255, 0.16);
+  --text: #f5f5f5;
+  --muted: #a0a0a0;
+  --accent: #ffffff;
+  --gold-bright: #ffffff;
+  --gold-soft: #d5d5d5;
+  --accent-soft: #6e6e6e;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+}
+
+body {
+  background: #080808;
+  color: var(--text);
+}
+
+body::before {
+  opacity: 0.05;
+  background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+}
+
+.site-header,
+.site-footer {
+  background: #080808;
+}
+
+.site-header::before {
+  background: #f5f5f5;
+  color: #080808;
+}
+
+.brand,
+.brand span,
+.main-nav a.active,
+.main-nav a:hover,
+.nav-link:hover,
+.eyebrow,
+.eyebrow.dark,
+.tag,
+.price,
+.product-price,
+.access-switch,
+.access-card .field-group label,
+.checkout-form label,
+.payment-methods legend,
+.size-select-label,
+.detail-size-label,
+.card-view-link,
+.card-view-link:hover {
+  color: #ffffff !important;
+}
+
+.brand {
+  text-shadow: none;
+}
+
+.cart-badge,
+.button.primary,
+.button.primary:hover,
+.filter-button.active,
+.filter-button.active:hover,
+.size-option.active,
+.size-option.active:hover,
+.product-button {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #080808 !important;
+}
+
+.luxury-hero {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: #161616;
+}
+
+.luxury-hero-image {
+  filter: grayscale(1) contrast(1.12) brightness(0.7);
+}
+
+.luxury-hero-shade {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.94), rgba(0, 0, 0, 0.45) 58%, rgba(0, 0, 0, 0.1)), linear-gradient(0deg, rgba(0, 0, 0, 0.82), transparent 48%);
+}
+
+.luxury-hero-content h1,
+.section-heading h2,
+.page-intro h1,
+.cart-page h1,
+.checkout-page h1,
+.product-detail-info h1,
+.contact-card h1,
+.access-intro h1,
+.access-card h2,
+.payment-success h1,
+.cart-summary h2,
+.info-card h2 {
+  color: #ffffff;
+}
+
+.luxury-hero-content h1 em {
+  color: #bdbdbd;
+}
+
+.category-card,
+.product-card,
+.catalog-grid .product-card,
+.benefit-card,
+.review-card,
+.access-card,
+.checkout-form,
+.contact-card,
+.info-card,
+.cart-summary,
+.cart-item,
+.payment-success {
+  background: #151515;
+  border-color: rgba(255, 255, 255, 0.13);
+}
+
+.category-card {
+  background: #171717;
+}
+
+.category-card img,
+.product-card img,
+.product-detail-gallery img,
+.cart-item img,
+.summary-product img {
+  filter: grayscale(1);
+}
+
+.product-card:hover .product-media img,
+.cart-product-link:hover img {
+  filter: grayscale(1) brightness(0.76) contrast(1.1);
+}
+
+.size-select,
+input,
+select,
+textarea,
+.country-trigger,
+.payment-option,
+.card-fields {
+  background: #0e0e0e;
+  color: #f5f5f5;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.button.secondary,
+.filter-button,
+.detail-pill,
+.size-option {
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #f5f5f5;
+}
+
+.button.secondary:hover,
+.filter-button:hover,
+.size-option:hover {
+  border-color: #ffffff;
+}
+
+.credit-card-preview {
+  background: linear-gradient(135deg, #3a3a3a, #0c0c0c 74%);
+}
+
+.card-chip {
+  background: #eeeeee;
+  color: #222222;
+}
+
+.social-login-button {
+  background: #101010;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.social-login-button:hover {
+  background: #252525;
+  border-color: #ffffff;
+}
+
+.facebook-login {
+  color: #ffffff;
+}
+
+.cart-notice-dialog {
+  background: #171717;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.cart-notice-dialog::before {
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+}
+
+.payment-option:has(input:checked),
+.payment-option:hover,
+.selected-payment {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: #202020;
+}
+
+.remove-button {
+  border-color: rgba(255, 255, 255, 0.26);
+  color: #e0e0e0;
+}
+
+.stars {
+  color: #ffffff;
+}
+
+@media (max-width: 620px) {
+  .main-nav {
+    border-top-color: rgba(255, 255, 255, 0.25);
+    background: rgba(10, 10, 10, 0.98);
+  }
+
+  .main-nav a.active,
+  .main-nav a:hover {
+    color: #ffffff !important;
+  }
+
+  .luxury-hero-content h1 {
+    font-size: clamp(2.15rem, 12vw, 3.5rem);
+  }
+}
+
 @media (max-width: 620px) {
   .success-summary,
   .success-actions {
