@@ -37,6 +37,7 @@ def database_config():
         "user": os.getenv("MYSQL_USER") or (unquote(parsed_url.username) if parsed_url and parsed_url.username else "root"),
         "password": os.getenv("MYSQL_PASSWORD") or (unquote(parsed_url.password) if parsed_url and parsed_url.password else ""),
         "database": os.getenv("MYSQL_DATABASE") or (parsed_url.path.lstrip("/") if parsed_url and parsed_url.path else "valkrohn"),
+        "connection_timeout": int(os.getenv("MYSQL_CONNECT_TIMEOUT", "10")),
     }
 
 
