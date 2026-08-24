@@ -307,6 +307,55 @@ function renderCatalog() {
   bindProductButtons();
 }
 
+function renderFeaturedProducts() {
+  const featuredGrid = document.getElementById('featured-product-grid');
+  const carousel = document.querySelector('[data-featured-carousel]');
+  if (!featuredGrid || !carousel) return;
+
+  featuredGrid.innerHTML = products.map((product) => `
+    <article class="product-card">
+      <div class="product-media">
+        <img src="${product.image}" alt="${product.name}" loading="lazy" />
+        <a class="card-view-link" href="product.html?id=${product.id}">Ver producto <span>↗</span></a>
+      </div>
+      <div class="product-info">
+        <div class="product-meta">
+          <span class="tag">${product.tags[0]}</span>
+          <span class="price">${formatPrice(product.price)}</span>
+        </div>
+        <h3>${product.name}</h3>
+        <label class="size-select-label">Talla
+          <select class="size-select" data-size-select>
+            ${product.sizes.map((size) => `<option value="${size}"${size === product.sizes[0] ? ' selected' : ''}>${size}</option>`).join('')}
+          </select>
+        </label>
+        <button class="button product-button" data-product="${product.id}">Añadir al carrito</button>
+      </div>
+    </article>
+  `).join('');
+
+  bindProductButtons();
+
+  const previousButton = carousel.querySelector('[data-carousel-prev]');
+  const nextButton = carousel.querySelector('[data-carousel-next]');
+  const getScrollAmount = () => Math.max(featuredGrid.clientWidth * 0.78, 260);
+  const updateArrowState = () => {
+    const maxScroll = featuredGrid.scrollWidth - featuredGrid.clientWidth - 2;
+    previousButton.disabled = featuredGrid.scrollLeft <= 2;
+    nextButton.disabled = featuredGrid.scrollLeft >= maxScroll;
+  };
+
+  previousButton.addEventListener('click', () => {
+    featuredGrid.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+  });
+  nextButton.addEventListener('click', () => {
+    featuredGrid.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+  });
+  featuredGrid.addEventListener('scroll', updateArrowState, { passive: true });
+  window.addEventListener('resize', updateArrowState);
+  updateArrowState();
+}
+
 function renderProductDetail() {
   const root = document.getElementById('product-detail');
   if (!root) return;
@@ -1022,6 +1071,7 @@ function init() {
   updateCartBadge();
   bindFilterButtons();
   bindForms();
+  renderFeaturedProducts();
   bindProductButtons();
   renderCatalog();
   renderProductDetail();

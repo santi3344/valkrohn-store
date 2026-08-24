@@ -3892,6 +3892,81 @@ textarea:hover {
   font-size: 0.62rem;
 }
 
+.featured-carousel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  align-items: center;
+  gap: 14px;
+}
+
+.featured-carousel .featured-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 42px) / 4);
+  grid-template-columns: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+}
+
+.featured-carousel .featured-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.featured-carousel .product-card {
+  scroll-snap-align: start;
+}
+
+.carousel-arrow {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(228, 194, 126, 0.5);
+  border-radius: 50%;
+  background: #17191a;
+  color: var(--gold-bright);
+  font-size: 1.35rem;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+.carousel-arrow:hover:not(:disabled) {
+  transform: scale(1.06);
+  background: var(--gold-bright);
+  color: #17130d;
+}
+
+.carousel-arrow:disabled {
+  cursor: default;
+  opacity: 0.28;
+}
+
+@media (max-width: 980px) {
+  .featured-carousel .featured-grid {
+    grid-auto-columns: calc((100% - 14px) / 2);
+  }
+}
+
+@media (max-width: 620px) {
+  .featured-carousel {
+    grid-template-columns: 28px minmax(0, 1fr) 28px;
+    gap: 5px;
+  }
+
+  .featured-carousel .featured-grid {
+    grid-auto-columns: calc((100% - 8px) / 2);
+  }
+
+  .carousel-arrow {
+    width: 28px;
+    height: 28px;
+    font-size: 0.95rem;
+  }
+}
+
 @media (max-width: 620px) {
   .luxury-hero {
     min-height: 650px;

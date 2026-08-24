@@ -93,78 +93,10 @@
           <h2>Lo más vendido</h2>
         </div>
 
-        <div class="product-grid featured-grid">
-          <article class="product-card">
-            <div class="product-media">
-              <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80" alt="Tech Jacket" />
-              <a class="card-view-link" href="product.html?id=1">Ver producto <span>↗</span></a>
-            </div>
-            <div class="product-info">
-              <div class="product-meta">
-                <span class="tag">VALKROHN</span>
-                <span class="price">189€</span>
-              </div>
-              <h3>Tech Jacket</h3>
-              <label class="size-select-label">Talla
-                <select class="size-select" data-size-select><option>XS</option><option selected>M</option><option>L</option><option>XL</option></select>
-              </label>
-              <button class="button product-button" data-product="1">Añadir al carrito</button>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-media">
-              <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80" alt="Cargo Pants" />
-              <a class="card-view-link" href="product.html?id=2">Ver producto <span>↗</span></a>
-            </div>
-            <div class="product-info">
-              <div class="product-meta">
-                <span class="tag">Urban</span>
-                <span class="price">129€</span>
-              </div>
-              <h3>Cargo Pants</h3>
-              <label class="size-select-label">Talla
-                <select class="size-select" data-size-select><option>S</option><option selected>M</option><option>L</option><option>XL</option></select>
-              </label>
-              <button class="button product-button" data-product="2">Añadir al carrito</button>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-media">
-              <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80" alt="Logo Hoodie" />
-              <a class="card-view-link" href="product.html?id=3">Ver producto <span>↗</span></a>
-            </div>
-            <div class="product-info">
-              <div class="product-meta">
-                <span class="tag">Core</span>
-                <span class="price">99€</span>
-              </div>
-              <h3>Logo Hoodie</h3>
-              <label class="size-select-label">Talla
-                <select class="size-select" data-size-select><option>S</option><option selected>M</option><option>L</option><option>XL</option></select>
-              </label>
-              <button class="button product-button" data-product="3">Añadir al carrito</button>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-media">
-              <img src="https://images.unsplash.com/photo-1521369909026-2afed882baee?auto=format&fit=crop&w=900&q=80" alt="Logo Cap" />
-              <a class="card-view-link" href="product.html?id=4">Ver producto <span>↗</span></a>
-            </div>
-            <div class="product-info">
-              <div class="product-meta">
-                <span class="tag">Essentials</span>
-                <span class="price">49€</span>
-              </div>
-              <h3>Logo Cap</h3>
-              <label class="size-select-label">Talla
-                <select class="size-select" data-size-select><option selected>Único</option></select>
-              </label>
-              <button class="button product-button" data-product="4">Añadir al carrito</button>
-            </div>
-          </article>
+        <div class="featured-carousel" data-featured-carousel>
+          <button class="carousel-arrow carousel-arrow-prev" type="button" data-carousel-prev aria-label="Ver productos anteriores">←</button>
+          <div class="product-grid featured-grid" id="featured-product-grid"></div>
+          <button class="carousel-arrow carousel-arrow-next" type="button" data-carousel-next aria-label="Ver más productos">→</button>
         </div>
       </section>
 
