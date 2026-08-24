@@ -2,6 +2,7 @@ import os
 import secrets
 from decimal import Decimal
 from pathlib import Path
+from urllib.parse import unquote, urlparse
 
 import mysql.connector
 import requests
@@ -16,13 +17,30 @@ app = Flask(__name__, static_folder=str(BASE_DIR), static_url_path="")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "valkrohn-development-key")
 
-DB_CONFIG = {
-    "host": os.getenv("MYSQL_HOST", "127.0.0.1"),
-    "port": int(os.getenv("MYSQL_PORT", "3306")),
-    "user": os.getenv("MYSQL_USER", "root"),
-    "password": os.getenv("MYSQL_PASSWORD", ""),
-    "database": os.getenv("MYSQL_DATABASE", "valkrohn"),
-}
+def database_config():
+    configured_host = os.getenv("MYSQL_HOST", "")
+    configured_port = os.getenv("MYSQL_PORT", "")
+    public_url = os.getenv("MYSQL_PUBLIC_URL", "")
+    if not public_url and "://" in configured_host:
+        public_url = configured_host
+    if not public_url and "://" in configured_port:
+        public_url = configured_port
+    parsed_url = urlparse(public_url) if public_url else None
+    parsed_port = parsed_url.port if parsed_url else None
+    try:
+        port = int(configured_port) if configured_port and "://" not in configured_port else parsed_port or 3306
+    except ValueError:
+        port = parsed_port or 3306
+    return {
+        "host": (parsed_url.hostname if parsed_url else configured_host) or "127.0.0.1",
+        "port": port,
+        "user": os.getenv("MYSQL_USER") or (unquote(parsed_url.username) if parsed_url and parsed_url.username else "root"),
+        "password": os.getenv("MYSQL_PASSWORD") or (unquote(parsed_url.password) if parsed_url and parsed_url.password else ""),
+        "database": os.getenv("MYSQL_DATABASE") or (parsed_url.path.lstrip("/") if parsed_url and parsed_url.path else "valkrohn"),
+    }
+
+
+DB_CONFIG = database_config()
 
 OAUTH_CONFIG = {
     "google": {
@@ -131,6 +149,9 @@ def oauth_callback(provider):
         return '<script>window.location.replace("/checkout.html");</script>'
     except (requests.RequestException, mysql.connector.Error, ValueError) as error:
         return f"No se pudo completar el acceso con {provider.title()}: {error}", 503
+    except Exception:
+        app.logger.exception("Unexpected OAuth callback error for %s", provider)
+        return f"No se pudo completar el acceso con {provider.title()}.", 503
     finally:
         if "cursor" in locals() and cursor:
             cursor.close()
