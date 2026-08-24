@@ -20,7 +20,7 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY", "valkrohn-development-key")
 def database_config():
     configured_host = os.getenv("MYSQL_HOST", "")
     configured_port = os.getenv("MYSQL_PORT", "")
-    public_url = os.getenv("MYSQL_PUBLIC_URL", "")
+    public_url = os.getenv("MYSQL_PUBLIC_URL") or os.getenv("MYSQL_URL", "")
     if not public_url and "://" in configured_host:
         public_url = configured_host
     if not public_url and "://" in configured_port:
@@ -28,7 +28,7 @@ def database_config():
     parsed_url = urlparse(public_url) if public_url else None
     parsed_port = parsed_url.port if parsed_url else None
     try:
-        port = int(configured_port) if configured_port and "://" not in configured_port else parsed_port or 3306
+        port = parsed_port or (int(configured_port) if configured_port and "://" not in configured_port else 3306)
     except ValueError:
         port = parsed_port or 3306
     return {
