@@ -80,7 +80,7 @@
             <div class="field-row">
               <div class="field-group">
                 <label for="city">Ciudad</label>
-                <input id="city" name="city" type="text" minlength="2" maxlength="60" autocomplete="address-level2" placeholder="Madrid" required />
+                <input id="city" name="city" type="text" minlength="2" maxlength="60" autocomplete="address-level2" placeholder="Bogotá" required />
               </div>
               <div class="field-group">
                 <label for="zip">Código postal</label>
@@ -94,11 +94,18 @@
               <label class="payment-option">
                 <input type="radio" name="payment" value="tarjeta" checked />
                 <span class="payment-copy">
-                  <strong>Pago seguro con Stripe</strong>
-                  <small>Tarjeta, Apple Pay y Google Pay cuando estén disponibles</small>
+                  <strong>Pago seguro colombiano</strong>
+                  <small>Tarjetas, PSE, Nequi y Bancolombia</small>
                 </span>
-                <span class="payment-mark">SECURE</span>
+                <span class="payment-mark">COP</span>
               </label>
+              <div class="payment-method-grid" aria-label="Medios de pago disponibles al activar Wompi">
+                <span class="payment-method-chip"><strong>PSE</strong><small>Bancos</small></span>
+                <span class="payment-method-chip"><strong>NEQUI</strong><small>Billetera</small></span>
+                <span class="payment-method-chip"><strong>BANCOLOMBIA</strong><small>Transferencia</small></span>
+                <span class="payment-method-chip"><strong>VISA · MC</strong><small>Tarjetas</small></span>
+              </div>
+              <p class="payment-activation-note">Los medios se habilitarán automáticamente cuando Wompi apruebe tu comercio.</p>
             </fieldset>
 
             <button type="submit" class="button primary block">Pagar ahora</button>
@@ -109,10 +116,10 @@
             <div class="credit-card-preview secure-payment-panel" aria-label="Pago seguro">
               <div class="card-preview-top">
                 <span class="card-chip">✦</span>
-                <strong>STRIPE</strong>
+                <strong>WOMPI CO</strong>
               </div>
               <strong>Tu pago se procesa de forma segura</strong>
-              <p>Serás redirigido a Stripe para introducir los datos de pago. VALKROHN no almacena tu tarjeta.</p>
+              <p>Compra en pesos colombianos con los medios habilitados para tu comercio. VALKROHN no almacena tus datos bancarios.</p>
             </div>
 
             <div class="cart-summary summary-box">

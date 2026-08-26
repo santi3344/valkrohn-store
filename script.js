@@ -790,7 +790,7 @@ function bindForms() {
 
     if (countryMenu) {
       countryMenu.innerHTML = countries.map((country) => `
-        <button type="button" class="country-option" role="option" data-country="${country.code}" aria-selected="${country.code === 'ES'}">
+        <button type="button" class="country-option" role="option" data-country="${country.code}" aria-selected="${country.code === 'CO'}">
           <img src="https://flagcdn.com/w40/${country.code.toLowerCase()}.png" alt="" />
           <span>${country.name}</span>
           <strong>${country.dial}</strong>
@@ -952,7 +952,7 @@ function bindForms() {
       if (!validateCheckoutForm(checkoutForm)) return;
       const cartLines = getCartLines();
       const subtotal = cartLines.reduce((total, line) => total + line.product.price * line.quantity, 0);
-      const total = subtotal + (subtotal > 0 ? 15 : 0);
+      const total = subtotal + (subtotal > 0 ? 20000 : 0);
 
       const orderPayload = {
         name: document.getElementById('name')?.value.trim(),
