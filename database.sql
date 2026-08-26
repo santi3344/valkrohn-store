@@ -69,10 +69,10 @@ CREATE TABLE IF NOT EXISTS order_items (
 );
 
 INSERT INTO products (id, name, category, price, image, description) VALUES
-(1, 'Tech Jacket', 'chaquetas', 189, 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80', 'Chaqueta ligera con corte amplio y acabados premium.'),
-(2, 'Cargo Pants', 'pantalones', 129, 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80', 'Pantalon comodo y estructurado para uso diario.'),
-(3, 'Logo Hoodie', 'sudaderas', 99, 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80', 'Sudadera sobria con ajuste comodo.'),
-(4, 'Logo Cap', 'accesorios', 49, 'https://images.unsplash.com/photo-1521369909026-2afed882baee?auto=format&fit=crop&w=900&q=80', 'Gorra con estructura firme y acabado limpio.'),
-(5, 'Field Coat', 'chaquetas', 214, 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80', 'Abrigo versatil con estetica tecnica.'),
-(6, 'Relax Tee', 'sudaderas', 69, 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=900&q=80', 'Camiseta de corte relajado y diseno limpio.')
+(1, 'Tech Jacket', 'chaquetas', 850000, 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80', 'Chaqueta ligera con corte amplio y acabados premium.'),
+(2, 'Cargo Pants', 'pantalones', 580000, 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80', 'Pantalon comodo y estructurado para uso diario.'),
+(3, 'Logo Hoodie', 'sudaderas', 445000, 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80', 'Sudadera sobria con ajuste comodo.'),
+(4, 'Logo Cap', 'accesorios', 220000, 'https://images.unsplash.com/photo-1521369909026-2afed882baee?auto=format&fit=crop&w=900&q=80', 'Gorra con estructura firme y acabado limpio.'),
+(5, 'Field Coat', 'chaquetas', 960000, 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80', 'Abrigo versatil con estetica tecnica.'),
+(6, 'Relax Tee', 'sudaderas', 310000, 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=900&q=80', 'Camiseta de corte relajado y diseno limpio.')
 ON DUPLICATE KEY UPDATE name = VALUES(name), price = VALUES(price), image = VALUES(image), description = VALUES(description);

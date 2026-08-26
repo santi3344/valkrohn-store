@@ -3,7 +3,7 @@ const products = [
     id: 1,
     name: 'Tech Jacket',
     category: 'chaquetas',
-    price: 189,
+    price: 850000,
     image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80',
     description: 'Chaqueta ligera con corte amplio, acabados premium y la silueta ideal para combinar con looks urbanos.',
     tags: ['NOVA', 'Premium'],
@@ -13,7 +13,7 @@ const products = [
     id: 2,
     name: 'Cargo Pants',
     category: 'pantalones',
-    price: 129,
+    price: 580000,
     image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80',
     description: 'Pantalón cómodo y estructurado con múltiples detalles funcionales para uso diario y looks rebeldes.',
     tags: ['Urban', 'Comfy'],
@@ -23,7 +23,7 @@ const products = [
     id: 3,
     name: 'Logo Hoodie',
     category: 'sudaderas',
-    price: 99,
+    price: 445000,
     image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80',
     description: 'Sudadera sobria con estampado minimalista, gran calidez y un ajuste cómodo para cada ocasión.',
     tags: ['Core', 'Casual'],
@@ -33,7 +33,7 @@ const products = [
     id: 4,
     name: 'Logo Cap',
     category: 'accesorios',
-    price: 49,
+    price: 220000,
     image: 'https://images.unsplash.com/photo-1521369909026-2afed882baee?auto=format&fit=crop&w=900&q=80',
     description: 'Gorra con estructura firme y acabado limpio, perfecta para completar cualquier conjunto.',
     tags: ['Essentials', 'Street'],
@@ -43,7 +43,7 @@ const products = [
     id: 5,
     name: 'Field Coat',
     category: 'chaquetas',
-    price: 214,
+    price: 960000,
     image: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80',
     description: 'Abrigo versátil con estética técnica y detalles premium para mantener estilo incluso en días fríos.',
     tags: ['Outerwear', 'Exclusive'],
@@ -53,7 +53,7 @@ const products = [
     id: 6,
     name: 'Relax Tee',
     category: 'sudaderas',
-    price: 69,
+    price: 310000,
     image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=900&q=80',
     description: 'Camiseta de corte relajado, suave al tacto y con diseño limpio para todas las ocasiones.',
     tags: ['Daily', 'Soft'],
@@ -141,7 +141,11 @@ function getCartLines() {
 }
 
 function formatPrice(value) {
-  return `${Number(value).toFixed(0)}€`;
+  return new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    maximumFractionDigits: 0
+  }).format(Number(value));
 }
 
 function showPaymentSuccess(form, total, orderNumber = `VK-${Date.now().toString().slice(-6)}`) {
@@ -476,7 +480,7 @@ function updateSummary(subtotal) {
 
   if (!subtotalEl || !shippingEl || !totalEl) return;
 
-  const shipping = subtotal > 0 ? 15 : 0;
+  const shipping = subtotal > 0 ? 20000 : 0;
   const total = subtotal + shipping;
 
   subtotalEl.textContent = formatPrice(subtotal);
@@ -493,12 +497,12 @@ function renderCheckoutSummary() {
 
   if (!cartLines.length) {
     root.innerHTML = '<p class="empty-state">No hay productos en tu carrito.</p>';
-    totalEl.textContent = '0€';
+    totalEl.textContent = formatPrice(0);
     return;
   }
 
   const subtotal = cartLines.reduce((total, line) => total + line.product.price * line.quantity, 0);
-  const shipping = subtotal > 0 ? 15 : 0;
+  const shipping = subtotal > 0 ? 20000 : 0;
   const total = subtotal + shipping;
 
   root.innerHTML = cartLines.map(({ product, size, quantity }) => `
@@ -817,7 +821,7 @@ function bindForms() {
       }
     });
 
-    const defaultCountry = countries.find((country) => country.code === 'ES');
+    const defaultCountry = countries.find((country) => country.code === 'CO');
     if (defaultCountry) {
       updateCountry(defaultCountry);
     }

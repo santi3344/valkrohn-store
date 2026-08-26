@@ -70,7 +70,7 @@ button {
 }
 
 .site-header::before {
-  content: "Envío gratuito a partir de 120€ · Cambios fáciles durante 30 días";
+  content: "Envío gratis desde $300.000 · Cambios fáciles durante 30 días";
   display: block;
   padding: 8px 16px;
   background: var(--text);

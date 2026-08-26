@@ -363,9 +363,9 @@ def create_checkout_session():
             subtotal += product["price"] * quantity
             line_items.append({
                 "price_data": {
-                    "currency": "eur",
+                    "currency": "cop",
                     "product_data": {"name": product["name"], "images": [product["image"]]},
-                    "unit_amount": int(product["price"] * 100),
+                    "unit_amount": int(product["price"]),
                 },
                 "quantity": quantity,
             })
@@ -377,12 +377,12 @@ def create_checkout_session():
                 "price": float(product["price"]),
             })
 
-        shipping = Decimal("15") if subtotal > 0 else Decimal("0")
+        shipping = Decimal("20000") if subtotal > 0 else Decimal("0")
         line_items.append({
             "price_data": {
-                "currency": "eur",
+                "currency": "cop",
                 "product_data": {"name": "Envío"},
-                "unit_amount": int(shipping * 100),
+                "unit_amount": int(shipping),
             },
             "quantity": 1,
         })
@@ -432,7 +432,7 @@ def confirm_payment():
             "address": metadata.get("address", ""),
             "city": metadata.get("city", ""),
             "zip": metadata.get("zip", ""),
-            "total": Decimal(checkout_session.amount_total) / 100,
+            "total": Decimal(checkout_session.amount_total),
             "items": json.loads(metadata.get("items", "[]")),
         }
         return create_order_from_data(order_data)
