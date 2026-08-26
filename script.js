@@ -573,33 +573,6 @@ function validateCheckoutForm(form) {
     errors.set(form.elements.zip, 'Escribe un código postal válido.');
   }
 
-  if (selectedPayment === 'tarjeta') {
-    const cardName = form.elements['card-name'].value.trim();
-    const cardNumber = getDigits(form.elements['card-number'].value);
-    const cardExpiry = form.elements['card-expiry'].value.trim();
-    const cardCvv = getDigits(form.elements['card-cvv'].value);
-    const expiryMatch = cardExpiry.match(/^(0[1-9]|1[0-2])\/(\d{2})$/);
-
-    if (!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]{2,60}$/.test(cardName)) {
-      errors.set(form.elements['card-name'], 'Escribe el titular tal como aparece en la tarjeta.');
-    }
-    if (!isValidLuhn(cardNumber)) {
-      errors.set(form.elements['card-number'], 'Introduce un número de tarjeta válido.');
-    }
-    if (!expiryMatch) {
-      errors.set(form.elements['card-expiry'], 'Usa el formato MM/AA.');
-    } else {
-      const expiryMonth = Number(expiryMatch[1]);
-      const expiryYear = 2000 + Number(expiryMatch[2]);
-      const now = new Date();
-      const isExpired = expiryYear < now.getFullYear() || (expiryYear === now.getFullYear() && expiryMonth < now.getMonth() + 1);
-      if (isExpired) errors.set(form.elements['card-expiry'], 'La tarjeta está vencida.');
-    }
-    if (cardCvv.length < 3 || cardCvv.length > 4) {
-      errors.set(form.elements['card-cvv'], 'El CVV debe tener 3 o 4 números.');
-    }
-  }
-
   form.querySelectorAll('.field-group').forEach((group) => {
     group.classList.remove('has-error');
     group.querySelector('.field-error')?.remove();
@@ -995,21 +968,18 @@ function bindForms() {
       };
 
       try {
-        const response = await fetch('/api/orders', {
+        const response = await fetch('/api/payments/create-checkout-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(orderPayload)
         });
         const result = await response.json();
-        if (!response.ok) throw new Error(result.error || 'No se pudo guardar el pedido.');
-
-        localStorage.removeItem(CART_KEY);
-        updateCartBadge();
-        showPaymentSuccess(checkoutForm, total, result.orderNumber);
+        if (!response.ok || !result.url) throw new Error(result.error || 'No se pudo iniciar el pago.');
+        window.location.assign(result.url);
       } catch (error) {
         if (errorSummary) {
           errorSummary.hidden = false;
-          errorSummary.textContent = 'No pudimos conectar con la base de datos. Inicia MySQL en XAMPP e inténtalo de nuevo.';
+          errorSummary.textContent = error.message || 'No se pudo iniciar el pago. Inténtalo de nuevo.';
         }
       }
     });
@@ -1069,6 +1039,7 @@ function bindForms() {
 function init() {
   ensureCartNotice();
   updateCartBadge();
+  confirmStripeReturn();
   bindFilterButtons();
   bindForms();
   renderFeaturedProducts();
@@ -1078,6 +1049,35 @@ function init() {
   renderCart();
   renderCheckoutSummary();
   bindProductDetailLinks();
+}
+
+async function confirmStripeReturn() {
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+  if (params.get('payment') !== 'success' || !sessionId) return;
+
+  const checkoutForm = document.getElementById('checkout-form');
+  if (!checkoutForm) return;
+
+  try {
+    const response = await fetch('/api/payments/confirm', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId })
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'No se pudo confirmar el pago.');
+    localStorage.removeItem(CART_KEY);
+    updateCartBadge();
+    showPaymentSuccess(checkoutForm, result.total, result.orderNumber);
+    window.history.replaceState({}, document.title, 'checkout.html');
+  } catch (error) {
+    const errorSummary = document.getElementById('checkout-error');
+    if (errorSummary) {
+      errorSummary.hidden = false;
+      errorSummary.textContent = error.message || 'No se pudo confirmar el pago.';
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', init);

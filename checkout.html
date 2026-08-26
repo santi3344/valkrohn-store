@@ -94,45 +94,11 @@
               <label class="payment-option">
                 <input type="radio" name="payment" value="tarjeta" checked />
                 <span class="payment-copy">
-                  <strong>Tarjeta bancaria</strong>
-                  <small>Visa · Mastercard · American Express</small>
+                  <strong>Pago seguro con Stripe</strong>
+                  <small>Tarjeta, Apple Pay y Google Pay cuando estén disponibles</small>
                 </span>
-                <span class="payment-mark">CARD</span>
+                <span class="payment-mark">SECURE</span>
               </label>
-
-              <div id="selected-payment" class="selected-payment" hidden>
-                <button type="button" id="selected-payment-toggle" class="selected-payment-toggle" aria-expanded="true">
-                  <span><strong>Tarjeta bancaria</strong><small id="saved-card-summary">Método seleccionado</small></span>
-                  <span class="selected-payment-arrow" aria-hidden="true">⌄</span>
-                </button>
-                <button type="button" id="change-payment" class="change-payment">Cambiar</button>
-              </div>
-
-              <div id="card-fields" class="card-fields">
-                <div class="field-group">
-                  <label for="card-name">Titular de la tarjeta</label>
-                  <input id="card-name" name="card-name" type="text" minlength="2" maxlength="60" autocomplete="cc-name" placeholder="Nombre que aparece en la tarjeta" />
-                </div>
-
-                <div class="field-group">
-                  <label for="card-number">Número de tarjeta</label>
-                  <input id="card-number" name="card-number" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="19" />
-                </div>
-
-                <div class="field-row">
-                  <div class="field-group">
-                    <label for="card-expiry">Fecha de vencimiento</label>
-                    <input id="card-expiry" name="card-expiry" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/AA" maxlength="5" />
-                  </div>
-                  <div class="field-group">
-                    <label for="card-cvv">CVV</label>
-                    <input id="card-cvv" name="card-cvv" type="password" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4" />
-                  </div>
-                </div>
-
-                <p class="payment-note">Esto es una previsualización. No introduzcas datos reales hasta conectar un proveedor de pago seguro.</p>
-              </div>
-
             </fieldset>
 
             <button type="submit" class="button primary block">Pagar ahora</button>
@@ -140,17 +106,13 @@
           </form>
 
           <aside class="checkout-side">
-            <div class="credit-card-preview" aria-label="Vista previa de la tarjeta">
+            <div class="credit-card-preview secure-payment-panel" aria-label="Pago seguro">
               <div class="card-preview-top">
                 <span class="card-chip">✦</span>
-                <span class="card-contactless">)))</span>
+                <strong>STRIPE</strong>
               </div>
-              <strong id="card-preview-number">•••• •••• •••• ••••</strong>
-              <div class="card-preview-bottom">
-                <span id="card-preview-name">NOMBRE DEL TITULAR</span>
-                <span>VENCE <b id="card-preview-expiry">MM/AA</b></span>
-                <span>CVV <b>•••</b></span>
-              </div>
+              <strong>Tu pago se procesa de forma segura</strong>
+              <p>Serás redirigido a Stripe para introducir los datos de pago. VALKROHN no almacena tu tarjeta.</p>
             </div>
 
             <div class="cart-summary summary-box">

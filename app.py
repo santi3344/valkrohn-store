@@ -1,11 +1,13 @@
 import os
 import secrets
+import json
 from decimal import Decimal
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 import mysql.connector
 import requests
+import stripe
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, send_from_directory, session
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -42,6 +44,7 @@ def database_config():
 
 
 DB_CONFIG = database_config()
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
 
 OAUTH_CONFIG = {
     "google": {
@@ -253,6 +256,8 @@ def products():
 
 @app.post("/api/orders")
 def create_order():
+    return jsonify({"error": "Los pedidos deben iniciar su pago desde Stripe Checkout."}), 410
+
     data = request.get_json(silent=True) or {}
     required = ["name", "email", "phone", "address", "city", "zip", "total", "items"]
     missing = [field for field in required if not data.get(field)]
@@ -293,6 +298,146 @@ def create_order():
             cursor.close()
         if connection and connection.is_connected():
             connection.close()
+
+
+def create_order_from_data(data):
+    connection = None
+    cursor = None
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        order_number = f"VK-{secrets.token_hex(3).upper()}"
+        cursor.execute(
+            "INSERT INTO orders (order_number, customer_name, email, phone, address, city, postal_code, total) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+            (order_number, data["name"], data["email"], data["phone"], data["address"], data["city"], data["zip"], data["total"]),
+        )
+        order_id = cursor.lastrowid
+        for item in data["items"]:
+            cursor.execute(
+                "INSERT INTO order_items (order_id, product_id, product_name, size, quantity, unit_price) VALUES (%s, %s, %s, %s, %s, %s)",
+                (order_id, item["productId"], item["name"], item.get("size", "Única"), int(item["quantity"]), Decimal(str(item["price"]))),
+            )
+        connection.commit()
+        return jsonify({"ok": True, "orderNumber": order_number, "total": float(data["total"])})
+    except (mysql.connector.Error, ValueError, TypeError) as error:
+        if connection:
+            connection.rollback()
+        return jsonify({"error": "No se pudo guardar el pedido.", "details": str(error)}), 503
+    finally:
+        if cursor:
+            cursor.close()
+        if connection and connection.is_connected():
+            connection.close()
+
+
+@app.post("/api/payments/create-checkout-session")
+def create_checkout_session():
+    if not stripe.api_key:
+        return jsonify({"error": "Stripe no está configurado. Añade STRIPE_SECRET_KEY al archivo .env."}), 503
+
+    data = request.get_json(silent=True) or {}
+    required = ["name", "email", "phone", "address", "city", "zip", "items"]
+    if any(not data.get(field) for field in required) or not isinstance(data["items"], list) or not data["items"]:
+        return jsonify({"error": "Faltan datos obligatorios del pedido."}), 400
+
+    connection = None
+    cursor = None
+    try:
+        connection = get_connection()
+        cursor = connection.cursor(dictionary=True)
+        product_ids = [int(item.get("productId", 0)) for item in data["items"]]
+        placeholders = ",".join(["%s"] * len(product_ids))
+        cursor.execute(
+            f"SELECT id, name, price, image FROM products WHERE active = TRUE AND id IN ({placeholders})",
+            product_ids,
+        )
+        product_map = {row["id"]: row for row in cursor.fetchall()}
+        line_items = []
+        normalized_items = []
+        subtotal = Decimal("0")
+        for item in data["items"]:
+            product = product_map.get(int(item.get("productId", 0)))
+            quantity = int(item.get("quantity", 0))
+            if not product or quantity < 1 or quantity > 20:
+                return jsonify({"error": "El carrito contiene un producto no válido."}), 400
+            subtotal += product["price"] * quantity
+            line_items.append({
+                "price_data": {
+                    "currency": "eur",
+                    "product_data": {"name": product["name"], "images": [product["image"]]},
+                    "unit_amount": int(product["price"] * 100),
+                },
+                "quantity": quantity,
+            })
+            normalized_items.append({
+                "productId": product["id"],
+                "name": product["name"],
+                "size": str(item.get("size") or "Única")[:20],
+                "quantity": quantity,
+                "price": float(product["price"]),
+            })
+
+        shipping = Decimal("15") if subtotal > 0 else Decimal("0")
+        line_items.append({
+            "price_data": {
+                "currency": "eur",
+                "product_data": {"name": "Envío"},
+                "unit_amount": int(shipping * 100),
+            },
+            "quantity": 1,
+        })
+        origin = request.host_url.rstrip("/")
+        checkout_session = stripe.checkout.Session.create(
+            mode="payment",
+            line_items=line_items,
+            customer_email=str(data["email"]).strip().lower(),
+            success_url=f"{origin}/checkout.html?payment=success&session_id={{CHECKOUT_SESSION_ID}}",
+            cancel_url=f"{origin}/checkout.html?payment=cancelled",
+            metadata={
+                "name": str(data["name"])[:120],
+                "email": str(data["email"])[:160],
+                "phone": str(data["phone"])[:40],
+                "address": str(data["address"])[:180],
+                "city": str(data["city"])[:80],
+                "zip": str(data["zip"])[:20],
+                "items": json.dumps(normalized_items, ensure_ascii=False),
+            },
+        )
+        return jsonify({"url": checkout_session.url})
+    except (mysql.connector.Error, ValueError, TypeError, stripe.error.StripeError) as error:
+        return jsonify({"error": "No se pudo iniciar el pago.", "details": str(error)}), 503
+    finally:
+        if cursor:
+            cursor.close()
+        if connection and connection.is_connected():
+            connection.close()
+
+
+@app.post("/api/payments/confirm")
+def confirm_payment():
+    if not stripe.api_key:
+        return jsonify({"error": "Stripe no está configurado."}), 503
+    session_id = (request.get_json(silent=True) or {}).get("sessionId")
+    if not session_id:
+        return jsonify({"error": "Falta la sesión de pago."}), 400
+    try:
+        checkout_session = stripe.checkout.Session.retrieve(session_id)
+        if checkout_session.payment_status != "paid":
+            return jsonify({"error": "El pago todavía no está confirmado."}), 409
+        metadata = checkout_session.metadata
+        order_data = {
+            "name": metadata.get("name", ""),
+            "email": checkout_session.customer_details.email or metadata.get("email", ""),
+            "phone": metadata.get("phone", ""),
+            "address": metadata.get("address", ""),
+            "city": metadata.get("city", ""),
+            "zip": metadata.get("zip", ""),
+            "total": Decimal(checkout_session.amount_total) / 100,
+            "items": json.loads(metadata.get("items", "[]")),
+        }
+        return create_order_from_data(order_data)
+    except (stripe.error.StripeError, ValueError, TypeError, json.JSONDecodeError) as error:
+        return jsonify({"error": "No se pudo verificar el pago.", "details": str(error)}), 503
 
 
 @app.get("/")
