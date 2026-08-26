@@ -577,6 +577,16 @@ function validateCheckoutForm(form) {
     errors.set(form.elements.zip, 'Escribe un código postal válido.');
   }
 
+  if (selectedPayment === 'pse' && !form.elements['pse-bank']?.value) {
+    errors.set(form.elements['pse-bank'], 'Selecciona tu banco.');
+  }
+  if (selectedPayment === 'nequi') {
+    const nequiPhone = getDigits(form.elements['nequi-phone']?.value || '');
+    if (nequiPhone.length !== 10 || !nequiPhone.startsWith('3')) {
+      errors.set(form.elements['nequi-phone'], 'Escribe un número celular colombiano válido de 10 dígitos.');
+    }
+  }
+
   form.querySelectorAll('.field-group').forEach((group) => {
     group.classList.remove('has-error');
     group.querySelector('.field-error')?.remove();
@@ -827,60 +837,8 @@ function bindForms() {
     }
 
     const paymentInputs = checkoutForm.querySelectorAll('input[name="payment"]');
-    const cardFields = document.getElementById('card-fields');
-    const cardInputs = cardFields?.querySelectorAll('input') || [];
-    const cardOption = checkoutForm.querySelector('.payment-option input[value="tarjeta"]')?.closest('.payment-option');
-    const selectedPaymentSummary = document.getElementById('selected-payment');
-    const selectedPaymentToggle = document.getElementById('selected-payment-toggle');
-    const savedCardSummary = document.getElementById('saved-card-summary');
-    const changePayment = document.getElementById('change-payment');
-    const cardNameInput = document.getElementById('card-name');
-    const cardNumberInput = document.getElementById('card-number');
-    const cardExpiryInput = document.getElementById('card-expiry');
-    const cardPreviewName = document.getElementById('card-preview-name');
-    const cardPreviewNumber = document.getElementById('card-preview-number');
-    const cardPreviewExpiry = document.getElementById('card-preview-expiry');
-
-    const updateCardPreview = () => {
-      const cardName = cardNameInput?.value.trim().toUpperCase() || 'NOMBRE DEL TITULAR';
-      const digits = (cardNumberInput?.value || '').replace(/\D/g, '').slice(0, 16);
-      const groups = digits.match(/.{1,4}/g) || [];
-      const maskedNumber = groups.map((group, index) => index < groups.length - 1 ? '••••' : group.padEnd(4, '•')).join(' ');
-
-      if (cardPreviewName) cardPreviewName.textContent = cardName;
-      if (cardPreviewNumber) cardPreviewNumber.textContent = maskedNumber || '•••• •••• •••• ••••';
-      if (cardPreviewExpiry) cardPreviewExpiry.textContent = cardExpiryInput?.value || 'MM/AA';
-
-      if (savedCardSummary) {
-        const lastFour = digits.length >= 4 ? digits.slice(-4) : '----';
-        const savedName = cardName || 'Titular pendiente';
-        savedCardSummary.textContent = `${savedName} · •••• ${lastFour}`;
-      }
-
-      sessionStorage.setItem('nova-card-summary', JSON.stringify({
-        name: cardName,
-        lastFour: digits.length >= 4 ? digits.slice(-4) : '',
-        expiry: cardExpiryInput?.value || ''
-      }));
-    };
-
-    cardNameInput?.addEventListener('input', () => {
-      cardNameInput.value = cardNameInput.value.replace(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]/g, '').slice(0, 60);
-      updateCardPreview();
-    });
-    cardNumberInput?.addEventListener('input', () => {
-      const digits = getDigits(cardNumberInput.value).slice(0, 16);
-      cardNumberInput.value = digits.replace(/(.{4})/g, '$1 ').trim();
-      updateCardPreview();
-    });
-    cardExpiryInput?.addEventListener('input', () => {
-      const digits = getDigits(cardExpiryInput.value).slice(0, 4);
-      cardExpiryInput.value = digits.length > 2 ? `${digits.slice(0, 2)}/${digits.slice(2)}` : digits;
-      updateCardPreview();
-    });
-    document.getElementById('card-cvv')?.addEventListener('input', (event) => {
-      event.target.value = getDigits(event.target.value).slice(0, 4);
-    });
+    const paymentFields = document.getElementById('payment-fields');
+    const paymentPanels = paymentFields?.querySelectorAll('[data-payment-fields]') || [];
     document.getElementById('phone')?.addEventListener('input', (event) => {
       event.target.value = getDigits(event.target.value).slice(0, 15);
     });
@@ -893,48 +851,20 @@ function bindForms() {
     document.getElementById('city')?.addEventListener('input', (event) => {
       event.target.value = event.target.value.replace(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]/g, '').slice(0, 60);
     });
-    updateCardPreview();
-
     const updatePaymentFields = () => {
       const selectedMethod = checkoutForm.querySelector('input[name="payment"]:checked')?.value;
-      const isCardPayment = selectedMethod === 'tarjeta';
 
       if (selectedMethod) {
         sessionStorage.setItem('nova-payment-method', selectedMethod);
       }
-
-      if (cardFields) {
-        cardFields.hidden = !isCardPayment;
-      }
-
-      cardInputs.forEach((input) => {
-        input.required = isCardPayment;
+      if (paymentFields) paymentFields.hidden = false;
+      paymentPanels.forEach((panel) => {
+        panel.hidden = panel.dataset.paymentFields !== selectedMethod;
       });
     };
 
     paymentInputs.forEach((input) => {
       input.addEventListener('change', updatePaymentFields);
-    });
-
-    cardOption?.querySelector('input')?.addEventListener('click', () => {
-      cardOption.classList.add('payment-hidden');
-      if (selectedPaymentSummary) selectedPaymentSummary.hidden = false;
-    });
-
-    changePayment?.addEventListener('click', () => {
-      if (cardOption) cardOption.classList.remove('payment-hidden');
-      if (selectedPaymentSummary) selectedPaymentSummary.hidden = true;
-      if (cardFields) cardFields.hidden = false;
-      selectedPaymentToggle?.setAttribute('aria-expanded', 'true');
-      cardOption?.querySelector('input')?.focus();
-    });
-
-    selectedPaymentToggle?.addEventListener('click', () => {
-      const isExpanded = selectedPaymentToggle.getAttribute('aria-expanded') === 'true';
-      const willExpand = !isExpanded;
-      selectedPaymentToggle.setAttribute('aria-expanded', String(!isExpanded));
-      if (cardFields) cardFields.hidden = isExpanded;
-      if (cardOption) cardOption.classList.toggle('payment-hidden', !willExpand);
     });
 
     updatePaymentFields();

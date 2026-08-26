@@ -94,18 +94,50 @@
               <label class="payment-option">
                 <input type="radio" name="payment" value="tarjeta" checked />
                 <span class="payment-copy">
-                  <strong>Pago seguro colombiano</strong>
-                  <small>Tarjetas, PSE, Nequi y Bancolombia</small>
+                  <strong>Tarjeta bancaria</strong>
+                  <small>Visa y Mastercard · pago seguro Wompi</small>
                 </span>
-                <span class="payment-mark">COP</span>
+                <span class="payment-mark">CARD</span>
               </label>
-              <div class="payment-method-grid" aria-label="Medios de pago disponibles al activar Wompi">
-                <span class="payment-method-chip"><strong>PSE</strong><small>Bancos</small></span>
-                <span class="payment-method-chip"><strong>NEQUI</strong><small>Billetera</small></span>
-                <span class="payment-method-chip"><strong>BANCOLOMBIA</strong><small>Transferencia</small></span>
-                <span class="payment-method-chip"><strong>VISA · MC</strong><small>Tarjetas</small></span>
+              <label class="payment-option">
+                <input type="radio" name="payment" value="pse" />
+                <span class="payment-copy"><strong>PSE</strong><small>Paga desde tu banco</small></span>
+                <span class="payment-mark">PSE</span>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="payment" value="nequi" />
+                <span class="payment-copy"><strong>Nequi</strong><small>Autoriza desde tu celular</small></span>
+                <span class="payment-mark">NQ</span>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="payment" value="bancolombia" />
+                <span class="payment-copy"><strong>Botón Bancolombia</strong><small>Transferencia segura</small></span>
+                <span class="payment-mark">BC</span>
+              </label>
+              <div id="payment-fields" class="payment-fields" hidden>
+                <div id="payment-fields-card" data-payment-fields="tarjeta">
+                  <p class="payment-inline-note">Al continuar, Wompi abrirá el formulario seguro para ingresar los datos de tu tarjeta. VALKROHN nunca verá ni guardará el número de tarjeta.</p>
+                </div>
+                <div id="payment-fields-pse" data-payment-fields="pse" hidden>
+                  <label class="field-group" for="pse-bank">Selecciona tu banco</label>
+                  <select id="pse-bank" name="pse-bank">
+                    <option value="">Selecciona un banco</option>
+                    <option value="bancolombia">Bancolombia</option>
+                    <option value="davivienda">Davivienda</option>
+                    <option value="bbva">BBVA</option>
+                    <option value="bogota">Banco de Bogotá</option>
+                  </select>
+                </div>
+                <div id="payment-fields-nequi" data-payment-fields="nequi" hidden>
+                  <label class="field-group" for="nequi-phone">Número celular de Nequi</label>
+                  <input id="nequi-phone" name="nequi-phone" type="tel" inputmode="numeric" maxlength="10" placeholder="300 123 4567" />
+                  <p class="payment-inline-note">Solo se usará para iniciar la solicitud de pago. La autorización se realiza en la app de Nequi.</p>
+                </div>
+                <div id="payment-fields-bancolombia" data-payment-fields="bancolombia" hidden>
+                  <p class="payment-inline-note">Al continuar serás enviado al entorno seguro de Bancolombia para autorizar la transferencia.</p>
+                </div>
               </div>
-              <p class="payment-activation-note">Los medios se habilitarán automáticamente cuando Wompi apruebe tu comercio.</p>
+              <p class="payment-activation-note">Los métodos se habilitarán al terminar la activación de Wompi.</p>
             </fieldset>
 
             <button type="submit" class="button primary block">Pagar ahora</button>

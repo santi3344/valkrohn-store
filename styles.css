@@ -4290,6 +4290,14 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
 .payment-method-chip strong { color: var(--gold-bright); font-size: .58rem; letter-spacing: .08em; }
 .payment-method-chip small { color: #a9a8a1; font-size: .56rem; }
 .payment-activation-note { margin: 12px 0 0; color: #a9a8a1; font-size: .68rem; line-height: 1.5; }
+.payment-fields { margin-top: 10px; padding: 16px; border: 1px solid rgba(228,194,126,.2); border-radius: 4px; background: rgba(255,255,255,.025); }
+.payment-fields select, .payment-fields input { width: 100%; margin-top: 8px; }
+.payment-inline-note { margin: 0; color: #c8c5bd; font-size: .75rem; line-height: 1.6; }
+
+@media (max-width: 620px) {
+  .payment-fields { padding: 13px; }
+  .payment-method-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 
 @media (max-width: 980px) {
   .category-grid, .featured-grid, .catalog-grid, .benefit-grid, .review-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
