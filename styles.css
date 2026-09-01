@@ -4936,3 +4936,108 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition-duration: .01ms !important; }
 }
+
+@media (max-width: 780px) {
+  .site-header .nav-wrap {
+    min-height: 64px;
+    flex-wrap: nowrap;
+    padding: 8px 0 10px;
+  }
+
+  .site-header .brand {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 1 auto;
+    min-width: 0;
+    color: var(--gold-bright);
+    font-size: clamp(0.88rem, 3.3vw, 1rem);
+    letter-spacing: 0.1em;
+  }
+
+  .site-header .brand img {
+    display: block;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    margin: 0 7px 0 0;
+    border: 1px solid rgba(228, 194, 126, 0.45);
+    border-radius: 50%;
+    background: #0b0c0d;
+  }
+
+  .site-header .nav-tools {
+    width: auto;
+    margin: 0;
+  }
+
+  .site-header .main-nav {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    min-height: 68px;
+    padding: 8px 10px 10px;
+    border-top: 1px solid rgba(228, 194, 126, 0.24);
+    background: rgba(13, 14, 15, 0.96);
+    box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.22);
+  }
+
+  .site-header .main-nav a {
+    display: grid;
+    place-items: center;
+    gap: 3px;
+    font-size: 0.5rem;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .luxury-hero {
+    min-height: 560px;
+  }
+
+  .luxury-hero-content {
+    width: min(100% - 112px, 520px);
+    margin-inline: auto;
+    padding: 28px 0 82px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .luxury-hero-content::before {
+    margin-inline: auto;
+  }
+
+  .luxury-hero-content h1 {
+    font-size: clamp(2.1rem, 8vw, 3.5rem);
+  }
+
+  .luxury-hero-content .lead {
+    max-width: 100%;
+    text-wrap: balance;
+  }
+
+  .luxury-hero-content .hero-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .luxury-hero-content .button {
+    flex: 1 1 100%;
+  }
+
+  .hero-carousel-arrow[data-hero-prev] {
+    left: 14px;
+  }
+
+  .hero-carousel-arrow[data-hero-next] {
+    right: 14px;
+  }
+
+  .hero-carousel-dots {
+    bottom: 18px;
+  }
+}

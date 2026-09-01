@@ -1035,7 +1035,7 @@ function initHeroCarousel() {
       secondaryText: 'Conocer hoodie'
     },
     {
-      image: 'https://images.unsplash.com/photo-1506629905607-d405b7a30db3?auto=format&fit=crop&w=1800&q=85',
+      image: 'https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=1800&q=85',
       alt: 'Look contemporáneo de VALKROHN',
       eyebrow: 'Edición limitada',
       title: 'El detalle define<br><em>tu historia.</em>',
