@@ -455,6 +455,48 @@ button {
   transition: transform 0.4s ease;
 }
 
+.product-media {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-image-back {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.45s ease;
+}
+
+.product-card:hover .product-image-back {
+  opacity: 1;
+  transform: scale(1.035);
+}
+
+.favorite-button {
+  position: absolute;
+  z-index: 4;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(242, 229, 201, 0.58);
+  border-radius: 50%;
+  background: rgba(13, 14, 15, 0.72);
+  color: #f4ecdc;
+  font-size: 1.4rem;
+  line-height: 1;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.favorite-button:hover {
+  transform: scale(1.08);
+  border-color: var(--gold-bright);
+  background: var(--gold-bright);
+  color: #17130d;
+}
+
 .product-card:hover img {
   transform: scale(1.035);
 }
@@ -3952,15 +3994,20 @@ textarea:hover {
 
 @media (max-width: 620px) {
   .featured-carousel {
-    grid-template-columns: 28px minmax(0, 1fr) 28px;
-    gap: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
   }
 
   .featured-carousel .featured-grid {
+    order: 1;
+    width: 100%;
     grid-auto-columns: calc((100% - 8px) / 2);
   }
 
   .carousel-arrow {
+    order: 2;
     width: 28px;
     height: 28px;
     font-size: 0.95rem;
@@ -4449,6 +4496,8 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
     width: 100%;
     padding: 28px 20px 88px;
     justify-content: flex-end;
+    align-items: center;
+    text-align: center;
   }
 
   .luxury-hero-content h1 {
@@ -4462,6 +4511,8 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
   }
 
   .hero-actions {
+    width: 100%;
+    justify-content: center;
     gap: 10px;
     margin-top: 22px;
   }
@@ -4508,6 +4559,25 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .categories .category-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 72%;
+    grid-template-columns: none;
+    overflow-x: auto;
+    padding: 2px 2px 12px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .categories .category-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .categories .category-card {
+    scroll-snap-align: start;
+  }
+
   .category-card {
     min-height: 200px;
     border-radius: 12px;
@@ -4515,7 +4585,7 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
 
   .category-card:nth-child(2),
   .category-card:nth-child(4) {
-    margin-top: 12px;
+    margin-top: 0;
   }
 
   .category-overlay {
@@ -4531,6 +4601,14 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
   .catalog-grid .product-card {
     border-radius: 12px;
     overflow: hidden;
+  }
+
+  .favorite-button {
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    font-size: 1.18rem;
   }
 
   .product-card img,
@@ -4659,6 +4737,19 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
   .product-actions,
   .success-actions {
     flex-direction: column;
+    align-items: center;
+  }
+
+  .product-actions .button,
+  .success-actions .button {
+    width: min(100%, 320px);
+  }
+
+  .detail-meta,
+  .detail-size-label,
+  .size-options {
+    justify-content: center;
+    text-align: center;
   }
 
   .cart-item {

@@ -5,6 +5,7 @@ const products = [
     category: 'chaquetas',
     price: 850000,
     image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80',
+    backImage: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=900&q=80',
     description: 'Chaqueta ligera con corte amplio, acabados premium y la silueta ideal para combinar con looks urbanos.',
     tags: ['NOVA', 'Premium'],
     sizes: ['XS', 'S', 'M', 'L', 'XL']
@@ -15,6 +16,7 @@ const products = [
     category: 'pantalones',
     price: 580000,
     image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80',
+    backImage: 'https://images.unsplash.com/photo-1506629905607-d405b7a30db3?auto=format&fit=crop&w=900&q=80',
     description: 'Pantalón cómodo y estructurado con múltiples detalles funcionales para uso diario y looks rebeldes.',
     tags: ['Urban', 'Comfy'],
     sizes: ['S', 'M', 'L', 'XL']
@@ -25,6 +27,7 @@ const products = [
     category: 'sudaderas',
     price: 445000,
     image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80',
+    backImage: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80',
     description: 'Sudadera sobria con estampado minimalista, gran calidez y un ajuste cómodo para cada ocasión.',
     tags: ['Core', 'Casual'],
     sizes: ['S', 'M', 'L', 'XL']
@@ -35,6 +38,7 @@ const products = [
     category: 'accesorios',
     price: 220000,
     image: 'https://images.unsplash.com/photo-1521369909026-2afed882baee?auto=format&fit=crop&w=900&q=80',
+    backImage: 'https://images.unsplash.com/photo-1575428652377-a2d80e2277fc?auto=format&fit=crop&w=900&q=80',
     description: 'Gorra con estructura firme y acabado limpio, perfecta para completar cualquier conjunto.',
     tags: ['Essentials', 'Street'],
     sizes: ['Único']
@@ -45,6 +49,7 @@ const products = [
     category: 'chaquetas',
     price: 960000,
     image: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80',
+    backImage: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=900&q=80',
     description: 'Abrigo versátil con estética técnica y detalles premium para mantener estilo incluso en días fríos.',
     tags: ['Outerwear', 'Exclusive'],
     sizes: ['S', 'M', 'L', 'XL']
@@ -55,6 +60,7 @@ const products = [
     category: 'sudaderas',
     price: 310000,
     image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=900&q=80',
+    backImage: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80',
     description: 'Camiseta de corte relajado, suave al tacto y con diseño limpio para todas las ocasiones.',
     tags: ['Daily', 'Soft'],
     sizes: ['XS', 'S', 'M', 'L', 'XL']
@@ -290,6 +296,8 @@ function renderCatalog() {
     <article class="product-card">
       <div class="product-media">
         <img src="${product.image}" alt="${product.name}" />
+        <img class="product-image-back" src="${product.backImage}" alt="Vista posterior de ${product.name}" loading="lazy" />
+        <button class="favorite-button" type="button" data-favorite="${product.id}" aria-label="Guardar ${product.name} en favoritos">♡</button>
         <a class="card-view-link" href="product.html?id=${product.id}">Ver producto <span>↗</span></a>
       </div>
       <div class="product-info">
@@ -309,6 +317,7 @@ function renderCatalog() {
   `).join('') : '<div class="empty-state" style="grid-column:1/-1;"><h3>No encontramos resultados</h3><p>Prueba otra palabra clave o cambia el filtro.</p></div>';
 
   bindProductButtons();
+  bindFavoriteButtons();
 }
 
 function renderFeaturedProducts() {
@@ -320,6 +329,8 @@ function renderFeaturedProducts() {
     <article class="product-card">
       <div class="product-media">
         <img src="${product.image}" alt="${product.name}" loading="lazy" />
+        <img class="product-image-back" src="${product.backImage}" alt="Vista posterior de ${product.name}" loading="lazy" />
+        <button class="favorite-button" type="button" data-favorite="${product.id}" aria-label="Guardar ${product.name} en favoritos">♡</button>
         <a class="card-view-link" href="product.html?id=${product.id}">Ver producto <span>↗</span></a>
       </div>
       <div class="product-info">
@@ -339,6 +350,7 @@ function renderFeaturedProducts() {
   `).join('');
 
   bindProductButtons();
+  bindFavoriteButtons();
 
   const previousButton = carousel.querySelector('[data-carousel-prev]');
   const nextButton = carousel.querySelector('[data-carousel-next]');
@@ -666,6 +678,15 @@ function bindProductButtons() {
       });
       option.classList.add('active');
       option.setAttribute('aria-pressed', 'true');
+    });
+  });
+}
+
+function bindFavoriteButtons() {
+  document.querySelectorAll('[data-favorite]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const productId = button.dataset.favorite;
+      window.location.href = `acceso.html?favorite=${encodeURIComponent(productId)}`;
     });
   });
 }
