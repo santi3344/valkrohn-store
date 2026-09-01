@@ -394,8 +394,8 @@ function renderProductDetail() {
         <button class="product-gallery-arrow product-gallery-prev" type="button" aria-label="Ver imagen anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6" /></svg></button>
         <button class="product-gallery-arrow product-gallery-next" type="button" aria-label="Ver siguiente imagen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></button>
       </div>
-      <div class="product-gallery-thumbnails" role="tablist" aria-label="Ángulos de ${product.name}">
-        ${productViews.map((view, index) => `<button class="product-gallery-thumb${index === 0 ? ' is-active' : ''}" type="button" data-gallery-index="${index}" role="tab" aria-label="${view.label}" aria-selected="${index === 0}"><img src="${view.image}" alt="" /></button>`).join('')}
+      <div class="product-gallery-dots" role="tablist" aria-label="Ángulos de ${product.name}">
+        ${productViews.map((view, index) => `<button class="product-gallery-dot${index === 0 ? ' is-active' : ''}" type="button" data-gallery-index="${index}" role="tab" aria-label="${view.label}" aria-selected="${index === 0}"></button>`).join('')}
       </div>
     </div>
 
