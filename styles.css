@@ -4941,11 +4941,15 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
   *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition-duration: .01ms !important; }
 }
 
-@media (max-width: 780px) {
+@media (max-width: 980px) {
+  body {
+    padding-bottom: 84px;
+  }
+
   .site-header {
     position: sticky;
     top: 0;
-    min-height: 94px;
+    min-height: 100px;
   }
 
   .site-header .nav-wrap > .brand {
@@ -5023,6 +5027,7 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
     border-top: 1px solid rgba(228, 194, 126, 0.24);
     background: rgba(13, 14, 15, 0.96);
     box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.22);
+    order: initial;
   }
 
   .site-header .main-nav a {
