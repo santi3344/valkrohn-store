@@ -3896,7 +3896,7 @@ textarea:hover {
   width: 38px;
   height: 38px;
   place-items: center;
-  padding: 0 0 2px;
+  padding: 0;
   border: 1px solid rgba(242, 229, 201, 0.48);
   border-radius: 50%;
   background: rgba(8, 9, 10, 0.36);
@@ -3919,6 +3919,17 @@ textarea:hover {
   transform: translateY(-50%) scale(1.06);
   background: var(--gold-bright);
   color: #17130d;
+}
+
+.hero-carousel-arrow svg,
+.carousel-arrow svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
 }
 
 .hero-carousel-dots {
@@ -4039,7 +4050,7 @@ textarea:hover {
   width: 44px;
   height: 44px;
   place-items: center;
-  padding: 0 0 2px;
+  padding: 0;
   border: 1px solid rgba(228, 194, 126, 0.5);
   border-radius: 50%;
   background: #17191a;
