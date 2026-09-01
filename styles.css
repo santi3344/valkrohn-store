@@ -3886,14 +3886,12 @@ textarea:hover {
 .hero-carousel-controls {
   position: absolute;
   z-index: 3;
-  inset: 0 22px;
-  display: grid;
-  grid-template-columns: 38px 1fr 38px;
-  align-items: center;
-  pointer-events: none;
+  inset: 0;
 }
 
 .hero-carousel-arrow {
+  position: absolute;
+  top: 50%;
   display: grid;
   width: 38px;
   height: 38px;
@@ -3904,23 +3902,34 @@ textarea:hover {
   color: var(--gold-bright);
   font-size: 1.1rem;
   pointer-events: auto;
+  transform: translateY(-50%);
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
+.hero-carousel-arrow[data-hero-prev] {
+  left: 20px;
+}
+
+.hero-carousel-arrow[data-hero-next] {
+  right: 20px;
+}
+
 .hero-carousel-arrow:hover {
-  transform: scale(1.06);
+  transform: translateY(-50%) scale(1.06);
   background: var(--gold-bright);
   color: #17130d;
 }
 
 .hero-carousel-dots {
+  position: absolute;
+  right: 50%;
+  bottom: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 7px;
   pointer-events: auto;
-  align-self: end;
-  margin-bottom: 30px;
+  transform: translateX(50%);
 }
 
 .hero-carousel-dot {
@@ -4592,7 +4601,7 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
   }
 
   .hero-carousel-controls {
-    inset: 0 12px;
+    inset: 0;
   }
 
   .hero-carousel-arrow {
@@ -4600,8 +4609,16 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
     height: 34px;
   }
 
+  .hero-carousel-arrow[data-hero-prev] {
+    left: 12px;
+  }
+
+  .hero-carousel-arrow[data-hero-next] {
+    right: 12px;
+  }
+
   .hero-carousel-dots {
-    margin-bottom: 22px;
+    bottom: 18px;
   }
 
   .categories,
