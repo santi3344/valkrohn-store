@@ -1081,7 +1081,7 @@ function initHeroCarousel() {
   carousel.querySelector('[data-hero-prev]')?.addEventListener('click', () => showSlide(currentSlide - 1));
   carousel.querySelector('[data-hero-next]')?.addEventListener('click', () => showSlide(currentSlide + 1));
   dots.forEach((dot) => dot.addEventListener('click', () => showSlide(Number(dot.dataset.heroDot))));
-  window.setInterval(() => showSlide(currentSlide + 1), 7000);
+  window.setInterval(() => showSlide(currentSlide + 1), 5000);
 }
 
 async function confirmStripeReturn() {

@@ -3886,11 +3886,11 @@ textarea:hover {
 .hero-carousel-controls {
   position: absolute;
   z-index: 3;
-  right: 42px;
-  bottom: 32px;
-  display: flex;
+  inset: 0 22px;
+  display: grid;
+  grid-template-columns: 38px 1fr 38px;
   align-items: center;
-  gap: 12px;
+  pointer-events: none;
 }
 
 .hero-carousel-arrow {
@@ -3903,6 +3903,7 @@ textarea:hover {
   background: rgba(8, 9, 10, 0.36);
   color: var(--gold-bright);
   font-size: 1.1rem;
+  pointer-events: auto;
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
@@ -3915,7 +3916,11 @@ textarea:hover {
 .hero-carousel-dots {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 7px;
+  pointer-events: auto;
+  align-self: end;
+  margin-bottom: 30px;
 }
 
 .hero-carousel-dot {
@@ -4587,15 +4592,16 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
   }
 
   .hero-carousel-controls {
-    right: 50%;
-    bottom: 24px;
-    transform: translateX(50%);
-    gap: 10px;
+    inset: 0 12px;
   }
 
   .hero-carousel-arrow {
     width: 34px;
     height: 34px;
+  }
+
+  .hero-carousel-dots {
+    margin-bottom: 22px;
   }
 
   .categories,
