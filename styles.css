@@ -4461,17 +4461,27 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
     min-height: 64px;
     gap: 8px;
     padding: 8px 0 10px;
+    position: relative;
+    z-index: 60;
   }
 
-  .brand {
-    font-size: 0.9rem;
-    letter-spacing: 0.12em;
-    gap: 6px;
+  .site-header .brand {
+    display: inline-flex;
+    align-items: center;
+    color: var(--gold-bright);
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    gap: 7px;
+    line-height: 1;
   }
 
-  .brand img {
-    width: 28px;
-    height: 28px;
+  .site-header .brand img {
+    display: block;
+    width: 36px;
+    height: 36px;
+    margin: 0;
+    border: 1px solid rgba(228, 194, 126, 0.45);
+    background: #0b0c0d;
   }
 
   .nav-tools {
@@ -4577,8 +4587,9 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
   }
 
   .luxury-hero-content {
-    width: 100%;
-    padding: 28px 20px 88px;
+    width: calc(100% - 104px);
+    margin-inline: auto;
+    padding: 28px 0 88px;
     justify-content: flex-end;
     align-items: center;
     text-align: center;
@@ -4592,6 +4603,7 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
     font-size: 0.82rem;
     line-height: 1.6;
     max-width: 100%;
+    text-wrap: balance;
   }
 
   .hero-actions {
@@ -4604,7 +4616,7 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
   .luxury-hero-content .button {
     flex: 1 1 100%;
     min-height: 45px;
-    padding: 0 14px;
+    padding: 0 8px;
     font-size: 0.54rem;
   }
 
@@ -4623,11 +4635,11 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
   }
 
   .hero-carousel-arrow[data-hero-prev] {
-    left: 12px;
+    left: 14px;
   }
 
   .hero-carousel-arrow[data-hero-next] {
-    right: 12px;
+    right: 14px;
   }
 
   .hero-carousel-dots {
