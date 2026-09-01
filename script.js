@@ -381,10 +381,22 @@ function renderProductDetail() {
   const product = products.find((item) => item.id === productId) || products[0];
   const requestedSize = params.get('size');
   const initialSize = product.sizes.includes(requestedSize) ? requestedSize : product.sizes[0];
+  const productViews = [
+    { image: product.image, label: 'Vista frontal' },
+    { image: product.backImage, label: 'Vista posterior' },
+    { image: `${product.image}&crop=faces,center`, label: 'Detalle de la prenda' }
+  ];
 
   root.innerHTML = `
     <div class="product-detail-gallery">
-      <img src="${product.image}" alt="${product.name}" />
+      <div class="product-gallery-stage">
+        <img id="product-gallery-image" src="${productViews[0].image}" alt="${product.name}, ${productViews[0].label}" />
+        <button class="product-gallery-arrow product-gallery-prev" type="button" aria-label="Ver imagen anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6" /></svg></button>
+        <button class="product-gallery-arrow product-gallery-next" type="button" aria-label="Ver siguiente imagen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></button>
+      </div>
+      <div class="product-gallery-thumbnails" role="tablist" aria-label="Ángulos de ${product.name}">
+        ${productViews.map((view, index) => `<button class="product-gallery-thumb${index === 0 ? ' is-active' : ''}" type="button" data-gallery-index="${index}" role="tab" aria-label="${view.label}" aria-selected="${index === 0}"><img src="${view.image}" alt="" /></button>`).join('')}
+      </div>
     </div>
 
     <div class="product-detail-info">
@@ -408,6 +420,34 @@ function renderProductDetail() {
   `;
 
   bindProductButtons();
+  initProductGallery(product.name, productViews);
+}
+
+function initProductGallery(productName, views) {
+  const image = document.getElementById('product-gallery-image');
+  const thumbnails = document.querySelectorAll('[data-gallery-index]');
+  if (!image || !thumbnails.length) return;
+  let currentIndex = 0;
+
+  const showView = (index) => {
+    currentIndex = (index + views.length) % views.length;
+    const view = views[currentIndex];
+    image.classList.add('is-changing');
+    window.setTimeout(() => {
+      image.src = view.image;
+      image.alt = `${productName}, ${view.label}`;
+      image.classList.remove('is-changing');
+    }, 140);
+    thumbnails.forEach((thumbnail, thumbnailIndex) => {
+      const active = thumbnailIndex === currentIndex;
+      thumbnail.classList.toggle('is-active', active);
+      thumbnail.setAttribute('aria-selected', String(active));
+    });
+  };
+
+  document.querySelector('.product-gallery-prev')?.addEventListener('click', () => showView(currentIndex - 1));
+  document.querySelector('.product-gallery-next')?.addEventListener('click', () => showView(currentIndex + 1));
+  thumbnails.forEach((thumbnail) => thumbnail.addEventListener('click', () => showView(Number(thumbnail.dataset.galleryIndex))));
 }
 
 function bindProductDetailLinks() {
