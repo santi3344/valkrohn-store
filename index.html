@@ -15,8 +15,11 @@
   <body>
     <header class="site-header">
       <div class="container nav-wrap">
+        <button class="mobile-menu-toggle" type="button" aria-label="Abrir menú" aria-controls="mobile-navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+        </button>
         <a href="index.html" class="brand"><img src="assets/valkrohn-logo.svg" alt="" /> <span>VALKROHN</span></a>
-        <nav class="main-nav" aria-label="Navegación principal">
+        <nav id="mobile-navigation" class="main-nav" aria-label="Navegación principal">
           <a href="index.html">Inicio</a>
           <a href="catalog.html">Colección</a>
           <a href="product.html?id=1">Nuevo</a>

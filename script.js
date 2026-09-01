@@ -994,6 +994,7 @@ function bindForms() {
 function init() {
   ensureCartNotice();
   updateCartBadge();
+  initMobileMenu();
   initHeroCarousel();
   confirmStripeReturn();
   bindFilterButtons();
@@ -1005,6 +1006,26 @@ function init() {
   renderCart();
   renderCheckoutSummary();
   bindProductDetailLinks();
+}
+
+function initMobileMenu() {
+  const toggle = document.querySelector('.mobile-menu-toggle');
+  const navigation = document.querySelector('.site-header .main-nav');
+  if (!toggle || !navigation) return;
+
+  const closeMenu = () => {
+    navigation.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  };
+
+  toggle.addEventListener('click', () => {
+    const isOpen = navigation.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  navigation.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+  document.addEventListener('click', (event) => {
+    if (!navigation.contains(event.target) && !toggle.contains(event.target)) closeMenu();
+  });
 }
 
 function initHeroCarousel() {
