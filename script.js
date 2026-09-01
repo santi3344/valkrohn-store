@@ -68,6 +68,8 @@ const products = [
 ];
 
 const CART_KEY = 'nova-cart';
+const FAVORITES_KEY = 'valkrohn-favorites';
+const PENDING_FAVORITE_KEY = 'valkrohn-pending-favorite';
 
 const countries = [
   { code: 'ES', name: 'España', dial: '+34', flag: '🇪🇸' },
@@ -726,9 +728,53 @@ function bindFavoriteButtons() {
   document.querySelectorAll('[data-favorite]').forEach((button) => {
     button.addEventListener('click', () => {
       const productId = button.dataset.favorite;
+      sessionStorage.setItem(PENDING_FAVORITE_KEY, productId);
       window.location.href = `acceso.html?favorite=${encodeURIComponent(productId)}`;
     });
   });
+}
+
+function getFavorites() {
+  try {
+    return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveFavorite(productId) {
+  const favorites = getFavorites();
+  if (!favorites.includes(productId)) {
+    favorites.push(productId);
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+  }
+}
+
+function renderFavorites() {
+  const root = document.getElementById('favorites-grid');
+  if (!root) return;
+  const favoriteProducts = getFavorites().map((productId) => products.find((product) => product.id === Number(productId))).filter(Boolean);
+  if (!favoriteProducts.length) {
+    root.innerHTML = '<div class="empty-state favorites-empty"><h2>Aún no tienes favoritos</h2><p>Explora la colección y guarda las piezas que quieres recordar.</p><a href="catalog.html" class="button primary">Ver colección</a></div>';
+    return;
+  }
+  root.innerHTML = favoriteProducts.map((product) => `
+    <article class="product-card">
+      <div class="product-media">
+        <img src="${product.image}" alt="${product.name}" />
+        <img class="product-image-back" src="${product.backImage}" alt="Vista posterior de ${product.name}" loading="lazy" />
+        <button class="favorite-button is-favorite" type="button" data-remove-favorite="${product.id}" aria-label="Quitar ${product.name} de favoritos">♥</button>
+        <a class="card-view-link" href="product.html?id=${product.id}">Ver producto <span>↗</span></a>
+      </div>
+      <div class="product-info"><div class="product-meta"><span class="tag">${product.tags[0]}</span><span class="price">${formatPrice(product.price)}</span></div><h3>${product.name}</h3><a href="product.html?id=${product.id}" class="button product-button">Ver producto</a></div>
+    </article>
+  `).join('');
+  root.querySelectorAll('[data-remove-favorite]').forEach((button) => button.addEventListener('click', () => {
+    const productId = Number(button.dataset.removeFavorite);
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(getFavorites().filter((id) => Number(id) !== productId)));
+    renderFavorites();
+  }));
+  bindProductDetailLinks();
 }
 
 function bindFilterButtons() {
@@ -780,6 +826,15 @@ function bindForms() {
     const nameInput = document.getElementById('login-name');
     const submitButton = document.getElementById('login-submit');
     const registerToggle = document.getElementById('register-toggle');
+    const pendingFavorite = sessionStorage.getItem(PENDING_FAVORITE_KEY);
+
+    if (pendingFavorite) {
+      isRegisterMode = true;
+      if (nameField) nameField.hidden = false;
+      if (nameInput) nameInput.required = true;
+      if (submitButton) submitButton.textContent = 'Crear mi cuenta y guardar favorito';
+      if (registerToggle) registerToggle.textContent = '¿Ya tienes cuenta? Iniciar sesión';
+    }
 
     registerToggle?.addEventListener('click', () => {
       isRegisterMode = !isRegisterMode;
@@ -827,6 +882,12 @@ function bindForms() {
         }
         if (!response.ok) throw new Error(result.error || 'No se pudo completar el acceso.');
         sessionStorage.setItem('nova-checkout-mode', 'account');
+        if (pendingFavorite) {
+          saveFavorite(Number(pendingFavorite));
+          sessionStorage.removeItem(PENDING_FAVORITE_KEY);
+          window.location.href = 'favoritos.html';
+          return;
+        }
         window.location.href = 'checkout.html';
       } catch (requestError) {
         if (error) {
@@ -1045,6 +1106,7 @@ function init() {
   renderProductDetail();
   renderCart();
   renderCheckoutSummary();
+  renderFavorites();
   bindProductDetailLinks();
 }
 

@@ -501,6 +501,45 @@ button {
   color: #17130d;
 }
 
+.favorite-button.is-favorite {
+  border-color: var(--gold-bright);
+  background: var(--gold-bright);
+  color: #17130d;
+}
+
+.favorites-page {
+  padding-top: 72px;
+  padding-bottom: 90px;
+}
+
+.favorites-empty {
+  display: grid;
+  min-height: 280px;
+  padding: 40px 24px;
+  place-items: center;
+  align-content: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.favorites-empty h2 {
+  margin: 0;
+  color: #eadbbd;
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 1.6rem;
+}
+
+.favorites-empty p {
+  max-width: 360px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.favorites-empty .button {
+  margin-top: 8px;
+}
+
 .product-card:hover img {
   transform: scale(1.035);
 }
