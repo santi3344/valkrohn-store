@@ -3780,6 +3780,12 @@ textarea:hover {
   object-fit: cover;
   object-position: center 24%;
   filter: saturate(0.7) contrast(1.1) brightness(0.68);
+  transition: opacity 0.18s ease, transform 0.7s ease;
+}
+
+.luxury-hero-image.is-changing {
+  opacity: 0.18;
+  transform: scale(1.025);
 }
 
 .luxury-hero-shade {
@@ -3875,6 +3881,57 @@ textarea:hover {
 .luxury-hero-scroll span {
   color: var(--accent);
   font-size: 1.2rem;
+}
+
+.hero-carousel-controls {
+  position: absolute;
+  z-index: 3;
+  right: 42px;
+  bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-carousel-arrow {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(242, 229, 201, 0.48);
+  border-radius: 50%;
+  background: rgba(8, 9, 10, 0.36);
+  color: var(--gold-bright);
+  font-size: 1.1rem;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.hero-carousel-arrow:hover {
+  transform: scale(1.06);
+  background: var(--gold-bright);
+  color: #17130d;
+}
+
+.hero-carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.hero-carousel-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(242, 229, 201, 0.48);
+  transition: width 0.2s ease, background 0.2s ease;
+}
+
+.hero-carousel-dot.is-active {
+  width: 25px;
+  border-radius: 999px;
+  background: var(--gold-bright);
 }
 
 .categories {
@@ -4527,6 +4584,18 @@ input, select, textarea, .country-trigger, .payment-option, .card-fields { borde
   .luxury-hero-mark,
   .luxury-hero-scroll {
     display: none;
+  }
+
+  .hero-carousel-controls {
+    right: 50%;
+    bottom: 24px;
+    transform: translateX(50%);
+    gap: 10px;
+  }
+
+  .hero-carousel-arrow {
+    width: 34px;
+    height: 34px;
   }
 
   .categories,

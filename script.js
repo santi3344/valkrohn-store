@@ -994,6 +994,7 @@ function bindForms() {
 function init() {
   ensureCartNotice();
   updateCartBadge();
+  initHeroCarousel();
   confirmStripeReturn();
   bindFilterButtons();
   bindForms();
@@ -1004,6 +1005,83 @@ function init() {
   renderCart();
   renderCheckoutSummary();
   bindProductDetailLinks();
+}
+
+function initHeroCarousel() {
+  const carousel = document.querySelector('[data-hero-carousel]');
+  if (!carousel) return;
+
+  const slides = [
+    {
+      image: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Modelo de VALKROHN con gafas de sol',
+      eyebrow: 'Colección Otoño 2026',
+      title: 'Fuerza que se viste.<br><em>Nobleza que permanece.</em>',
+      lead: 'Prendas de carácter para quienes avanzan con disciplina y dejan una marca propia.',
+      primaryHref: 'catalog.html',
+      primaryText: 'Descubrir colección',
+      secondaryHref: 'product.html?id=2',
+      secondaryText: 'Ver destacado'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Modelo con prendas urbanas VALKROHN',
+      eyebrow: 'Nuevos esenciales',
+      title: 'Diseño urbano.<br><em>Presencia real.</em>',
+      lead: 'Siluetas versátiles para cada día, creadas para acompañar tu propio ritmo.',
+      primaryHref: 'catalog.html?category=sudaderas',
+      primaryText: 'Ver esenciales',
+      secondaryHref: 'product.html?id=3',
+      secondaryText: 'Conocer hoodie'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1506629905607-d405b7a30db3?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Look contemporáneo de VALKROHN',
+      eyebrow: 'Edición limitada',
+      title: 'El detalle define<br><em>tu historia.</em>',
+      lead: 'Descubre piezas de edición limitada y construye un look que no pasa desapercibido.',
+      primaryHref: 'catalog.html?filter=featured',
+      primaryText: 'Ver edición limitada',
+      secondaryHref: 'product.html?id=5',
+      secondaryText: 'Ver abrigo'
+    }
+  ];
+  const image = carousel.querySelector('.luxury-hero-image');
+  const eyebrow = carousel.querySelector('[data-hero-eyebrow]');
+  const title = carousel.querySelector('[data-hero-title]');
+  const lead = carousel.querySelector('[data-hero-lead]');
+  const primary = carousel.querySelector('[data-hero-primary]');
+  const secondary = carousel.querySelector('[data-hero-secondary]');
+  const dots = carousel.querySelectorAll('[data-hero-dot]');
+  let currentSlide = 0;
+
+  const showSlide = (index) => {
+    currentSlide = (index + slides.length) % slides.length;
+    const slide = slides[currentSlide];
+    image.classList.add('is-changing');
+    window.setTimeout(() => {
+      image.src = slide.image;
+      image.alt = slide.alt;
+      eyebrow.textContent = slide.eyebrow;
+      title.innerHTML = slide.title;
+      lead.textContent = slide.lead;
+      primary.href = slide.primaryHref;
+      primary.textContent = slide.primaryText;
+      secondary.href = slide.secondaryHref;
+      secondary.textContent = slide.secondaryText;
+      image.classList.remove('is-changing');
+    }, 180);
+    dots.forEach((dot, dotIndex) => {
+      const active = dotIndex === currentSlide;
+      dot.classList.toggle('is-active', active);
+      dot.setAttribute('aria-selected', String(active));
+    });
+  };
+
+  carousel.querySelector('[data-hero-prev]')?.addEventListener('click', () => showSlide(currentSlide - 1));
+  carousel.querySelector('[data-hero-next]')?.addEventListener('click', () => showSlide(currentSlide + 1));
+  dots.forEach((dot) => dot.addEventListener('click', () => showSlide(Number(dot.dataset.heroDot))));
+  window.setInterval(() => showSlide(currentSlide + 1), 7000);
 }
 
 async function confirmStripeReturn() {

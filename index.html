@@ -36,17 +36,26 @@
 
     <main>
       <section class="hero">
-        <div class="container luxury-hero">
+        <div class="container luxury-hero" data-hero-carousel>
           <img class="luxury-hero-image" src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1800&q=85" alt="Modelo con chaqueta negra de VALKROHN" />
           <div class="luxury-hero-shade"></div>
           <div class="luxury-hero-content">
-            <p class="eyebrow">Colección Otoño 2026</p>
-            <h1>Fuerza que se viste.<br /><em>Nobleza que permanece.</em></h1>
-            <p class="lead">Prendas de carácter para quienes avanzan con disciplina y dejan una marca propia.</p>
+            <p class="eyebrow" data-hero-eyebrow>Colección Otoño 2026</p>
+            <h1 data-hero-title>Fuerza que se viste.<br /><em>Nobleza que permanece.</em></h1>
+            <p class="lead" data-hero-lead>Prendas de carácter para quienes avanzan con disciplina y dejan una marca propia.</p>
             <div class="hero-actions">
-              <a href="catalog.html" class="button primary">Descubrir colección</a>
-              <a href="product.html?id=2" class="button secondary">Ver destacado</a>
+              <a href="catalog.html" class="button primary" data-hero-primary>Descubrir colección</a>
+              <a href="product.html?id=2" class="button secondary" data-hero-secondary>Ver destacado</a>
             </div>
+          </div>
+          <div class="hero-carousel-controls" aria-label="Cambiar campaña principal">
+            <button type="button" class="hero-carousel-arrow" data-hero-prev aria-label="Campaña anterior">←</button>
+            <div class="hero-carousel-dots" role="tablist" aria-label="Campañas">
+              <button type="button" class="hero-carousel-dot is-active" data-hero-dot="0" aria-label="Ver campaña 1" aria-selected="true"></button>
+              <button type="button" class="hero-carousel-dot" data-hero-dot="1" aria-label="Ver campaña 2" aria-selected="false"></button>
+              <button type="button" class="hero-carousel-dot" data-hero-dot="2" aria-label="Ver campaña 3" aria-selected="false"></button>
+            </div>
+            <button type="button" class="hero-carousel-arrow" data-hero-next aria-label="Siguiente campaña">→</button>
           </div>
           <div class="luxury-hero-mark">V / K</div>
           <div class="luxury-hero-scroll">Desliza para explorar <span>↓</span></div>
